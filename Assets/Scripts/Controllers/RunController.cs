@@ -1,4 +1,5 @@
 ﻿using CliffJump.Input;
+using CliffJump.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,12 +7,20 @@ namespace CliffJump.Controllers
 {
     public class RunController : MonoBehaviour
     {
-        [SerializeField] private float runAcceleration = 2f, runDeceleration = 0.05f;
+        [Header("UI")]
+        [SerializeField] private SpeedMeter speedMeter;
+
+        [Header("RunSpeed")]
+        [SerializeField] private float runAcceleration = 2f;
+        [SerializeField] private float runDeceleration = 0.05f;
+        
+        [Header("Input")]
         [SerializeField] private InputActionReference[] actionReferences;
 
-        private ButtonMashListener mashListener = new();
+        private readonly ButtonMashListener mashListener = new();
 
-        [SerializeField] private float currentRunSpeed;
+        private float currentRunSpeed;
+        private float currentDeceleration;
 
         private void Awake()
         {
@@ -36,12 +45,16 @@ namespace CliffJump.Controllers
 
         private void FixedUpdate()
         {
-            currentRunSpeed = Mathf.Max(0f, currentRunSpeed - runDeceleration);
+            currentRunSpeed = Mathf.Max(0f, currentRunSpeed - currentDeceleration);
+            currentDeceleration += runDeceleration;
+
+            speedMeter.SetSpeedValue(currentRunSpeed);
         }
 
         private void OnMash()
         {
             currentRunSpeed += runAcceleration / Mathf.Max(currentRunSpeed, 1f);
+            currentDeceleration = runDeceleration;
         }
     }
 }
