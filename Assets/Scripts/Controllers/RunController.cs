@@ -25,7 +25,7 @@ namespace CliffJump.Controllers
         [SerializeField] private InputActionReference[] actionReferences;
 
         private readonly ButtonMashListener mashListener = new();
-        private readonly Timer timer = new ();
+        private readonly Timer timer = new();
 
         private float currentRunSpeed;
         private float currentDeceleration;
