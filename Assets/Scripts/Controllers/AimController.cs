@@ -1,4 +1,5 @@
-﻿using System.Timers;
+﻿using System;
+using System.Timers;
 using CliffJump.UI.Views;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace CliffJump.Controllers
 {
     public class AimController : MonoBehaviour
     {
+        public event Action<bool> AimComplete;
+        
         [Header("References")]
         [SerializeField] private AimView view;
         
@@ -14,14 +17,20 @@ namespace CliffJump.Controllers
 
         private readonly Timer timer = new();
 
-        private void OnEnable()
+        public void ResetField()
         {
             view.SetUpField();
+        }
 
+        public void StartTimer()
+        {
+            timer.Start();
+        }
+
+        private void OnEnable()
+        {
             timer.Interval = timerDuration * 1000;
             timer.Elapsed += OnTimerElapsed;
-
-            timer.Start();
         }
 
         private void OnDisable()
@@ -32,8 +41,10 @@ namespace CliffJump.Controllers
         private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             timer.Stop();
-            
-            Debug.Log($"OVERLAP: {view.ReticuleOverlapsObstacle()}");
+
+            var result = view.ReticuleOverlapsObstacle();
+            AimComplete?.Invoke(result);
+            Debug.Log($"OVERLAP: {result}");
         }
     }
 }
