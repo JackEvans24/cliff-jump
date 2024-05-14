@@ -2,11 +2,11 @@
     "name": "DefaultActions",
     "maps": [
         {
-            "name": "Default",
+            "name": "Run",
             "id": "8e32fae2-6baf-4b28-8502-f4a076600b26",
             "actions": [
                 {
-                    "name": "RunLeft",
+                    "name": "Left",
                     "type": "Button",
                     "id": "fbd67a2c-cb1d-40df-af8a-cb033c204c5c",
                     "expectedControlType": "Button",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RunRight",
+                    "name": "Right",
                     "type": "Button",
                     "id": "7dd8c7cc-7f4f-4d97-81b5-ea0ec2839d64",
                     "expectedControlType": "Button",
@@ -31,8 +31,8 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "RunLeft",
+                    "groups": "Keyboard",
+                    "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -42,13 +42,25 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "RunRight",
+                    "groups": "Keyboard",
+                    "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
