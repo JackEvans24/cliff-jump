@@ -1,0 +1,54 @@
+{
+    "name": "DefaultActions",
+    "maps": [
+        {
+            "name": "Default",
+            "id": "8e32fae2-6baf-4b28-8502-f4a076600b26",
+            "actions": [
+                {
+                    "name": "RunLeft",
+                    "type": "Button",
+                    "id": "fbd67a2c-cb1d-40df-af8a-cb033c204c5c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RunRight",
+                    "type": "Button",
+                    "id": "7dd8c7cc-7f4f-4d97-81b5-ea0ec2839d64",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5d301e0b-2352-4234-bedb-aea63e051872",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RunLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5248699a-1b9c-4861-b04b-557c5be8e05a",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RunRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
