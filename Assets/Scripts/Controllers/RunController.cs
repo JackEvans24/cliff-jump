@@ -1,4 +1,5 @@
-﻿using System.Timers;
+﻿using System;
+using System.Timers;
 using CliffJump.Input;
 using CliffJump.UI;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace CliffJump.Controllers
 {
     public class RunController : MonoBehaviour
     {
+        public event Action<float> RunComplete;
+
         [Header("UI")]
         [SerializeField] private SpeedMeter speedMeter;
 
@@ -27,6 +30,11 @@ namespace CliffJump.Controllers
         private float currentRunSpeed;
         private float currentDeceleration;
 
+        public void StartTimer()
+        {
+            timer.Start();
+        }
+
         private void Awake()
         {
             foreach (var actionReference in actionReferences)
@@ -44,14 +52,12 @@ namespace CliffJump.Controllers
             timer.Elapsed += OnTimerElapsed;
 
             mashListener.Listen();
-
-            timer.Start();
-            Debug.Log("TIMER STARTED");
         }
 
         private void OnDisable()
         {
             mashListener.Unlisten();
+            timer.Elapsed -= OnTimerElapsed;
         }
 
         private void FixedUpdate()
@@ -72,10 +78,8 @@ namespace CliffJump.Controllers
         {
             timer.Stop();
             
-            // TODO: Emit event ??
-
+            RunComplete?.Invoke(currentRunSpeed);
             Debug.Log($"FINAL SPEED: {currentRunSpeed}");
-            enabled = false;
         }
     }
 }
