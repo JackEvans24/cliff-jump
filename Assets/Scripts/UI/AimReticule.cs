@@ -3,8 +3,11 @@ using UnityEngine.InputSystem;
 
 namespace CliffJump.UI
 {
+    [RequireComponent(typeof(Collider2D))]
     public class AimReticule : MonoBehaviour
     {
+        public Collider2D Collider => coll;
+
         [Header("Movement")]
         [SerializeField] private float moveSpeed;
         [SerializeField] private float smoothing;
@@ -12,11 +15,14 @@ namespace CliffJump.UI
         [Header("Input")]
         [SerializeField] private InputActionReference movementReference;
 
+        private Collider2D coll;
+
         private InputAction movementAction;
         private Vector2 input, movement, currentVelocity;
         
         private void Awake()
         {
+            coll = GetComponent<Collider2D>();
             movementAction = movementReference.ToInputAction();
         }
 
