@@ -31,6 +31,8 @@ namespace CliffJump.Controllers
         {
             timer.Interval = timerDuration * 1000;
             timer.Elapsed += OnTimerElapsed;
+            
+            view.SetUpField();
         }
 
         private void OnDisable()
