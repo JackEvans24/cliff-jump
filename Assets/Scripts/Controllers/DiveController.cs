@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using CliffJump.UI.Views;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace CliffJump.Controllers
 {
     public class DiveController : MonoBehaviour
     {
+        [Header("References")]
+        [SerializeField] private DiveView view;
+        
         [Header("Input")]
         [SerializeField] private InputActionReference tilt;
 
@@ -39,7 +43,7 @@ namespace CliffJump.Controllers
         private void FixedUpdate()
         {
             currentTiltAmount += tiltAmount * currentInput;
-            Debug.Log(currentTiltAmount);
+            view.SetLabel(currentTiltAmount);
         }
     }
 }
