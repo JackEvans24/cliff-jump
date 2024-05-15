@@ -1,4 +1,5 @@
-﻿using CliffJump.UI.Views;
+﻿using System;
+using CliffJump.UI.Views;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +14,9 @@ namespace CliffJump.Controllers
         [SerializeField] private InputActionReference tilt;
 
         [Header("Tilt values")]
-        [SerializeField] private float tiltAmount;
+        [SerializeField] private float tiltAmount = 0.1f;
+        [SerializeField] private float latentTilt = 0.01f;
+        [SerializeField] private float latentTiltMultiplier = 0.1f;
 
         private InputAction tiltAction;
         
@@ -42,8 +45,23 @@ namespace CliffJump.Controllers
 
         private void FixedUpdate()
         {
-            currentTiltAmount += tiltAmount * currentInput;
+            Tilt();
             view.SetLabel(currentTiltAmount);
+        }
+
+        private void Tilt()
+        {
+            var inputTip = tiltAmount * currentInput;
+
+            var latentDirection = Math.Sign(currentTiltAmount);
+            if (latentDirection == 0)
+                latentDirection = 1;
+
+            var latentMultiplier = Math.Max(1f, Math.Abs(currentTiltAmount) * latentTiltMultiplier);
+
+            var latentTip = latentTilt * latentDirection * latentMultiplier;
+
+            currentTiltAmount += inputTip + latentTip;
         }
     }
 }
