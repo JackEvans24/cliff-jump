@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using CliffJump.Data;
 using CliffJump.Input;
 using CliffJump.UI.Views;
+using CliffJump.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -12,6 +14,9 @@ namespace CliffJump.Controllers
 {
     public class JumpController : MonoBehaviour
     {
+        public event Action<float> JumpSucceeded;
+        public event Action JumpFailed;
+        
         [Header("References")]
         [SerializeField] private JumpView view;
         
@@ -23,7 +28,7 @@ namespace CliffJump.Controllers
         [SerializeField] private float timerDuration = 3;
 
         private readonly QTEListener qteListener = new();
-        private readonly Timer timer = new();
+        private readonly TimerPlus timer = new();
 
         private void OnEnable()
         {
@@ -56,13 +61,13 @@ namespace CliffJump.Controllers
             
             view.ClearView();
 
-            var inputActions = GenerateQteQueue();
+            var inputActions = GenerateQTEQueue();
             qteListener.Listen(actions, inputActions);
             
             timer.Start();
         }
 
-        private Queue<InputAction> GenerateQteQueue()
+        private Queue<InputAction> GenerateQTEQueue()
         {
             var inputActions = new Queue<InputAction>();
 
@@ -84,20 +89,28 @@ namespace CliffJump.Controllers
 
         private void OnQteSucceeded()
         {
-            Debug.Log("SUCCESS");
+            var timeRemaining = (float)(timer.TimeRemaining / 1000f);
+
+            Debug.Log($"SUCCESS: {timeRemaining}");
             QTEFinished();
+            
+            JumpSucceeded?.Invoke(timeRemaining);
         }
 
         private void OnQteFailed()
         {
             Debug.Log("FAILURE");
             QTEFinished();
+            
+            JumpFailed?.Invoke();
         }
 
         private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             Debug.Log("TIME'S UP");
             QTEFinished();
+            
+            JumpFailed?.Invoke();
         }
 
         private void QTEFinished()
