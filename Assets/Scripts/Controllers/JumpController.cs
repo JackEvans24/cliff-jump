@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using CliffJump.Data;
 using CliffJump.Input;
 using CliffJump.UI.Views;
@@ -18,10 +19,17 @@ namespace CliffJump.Controllers
         [SerializeField] private int qteLength = 3;
         [SerializeField] private QTEAction[] qteActions;
 
+        [Header("Timer")]
+        [SerializeField] private float timerDuration = 3;
+
         private readonly QTEListener qteListener = new();
+        private readonly Timer timer = new();
 
         private void OnEnable()
         {
+            timer.Interval = timerDuration * 1000;
+            timer.Elapsed += OnTimerElapsed;
+
             qteListener.Progress += OnQteProgress;
             qteListener.Succeeded += OnQteSucceeded;
             qteListener.Failed += OnQteFailed;
@@ -31,6 +39,8 @@ namespace CliffJump.Controllers
 
         private void OnDisable()
         {
+            timer.Elapsed -= OnTimerElapsed;
+
             qteListener.Unlisten();
 
             qteListener.Progress -= OnQteProgress;
@@ -48,6 +58,8 @@ namespace CliffJump.Controllers
 
             var inputActions = GenerateQteQueue();
             qteListener.Listen(actions, inputActions);
+            
+            timer.Start();
         }
 
         private Queue<InputAction> GenerateQteQueue()
@@ -73,13 +85,25 @@ namespace CliffJump.Controllers
         private void OnQteSucceeded()
         {
             Debug.Log("SUCCESS");
-            qteListener.Unlisten();
+            QTEFinished();
         }
 
         private void OnQteFailed()
         {
             Debug.Log("FAILURE");
+            QTEFinished();
+        }
+
+        private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            Debug.Log("TIME'S UP");
+            QTEFinished();
+        }
+
+        private void QTEFinished()
+        {
             qteListener.Unlisten();
+            timer.Stop();
         }
     }
 }
