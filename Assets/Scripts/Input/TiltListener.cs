@@ -6,12 +6,15 @@ namespace CliffJump.Input
 {
     public class TiltListener
     {
+        public event Action TiltFailed;
+
         public float CurrentTiltAmount { get; private set; }
         
         private TiltData tiltData;
         private InputAction tiltAction;
 
         private float currentInput;
+        private bool enabled;
 
         public void Listen(TiltData data, InputAction action)
         {
@@ -20,20 +23,28 @@ namespace CliffJump.Input
             tiltAction.Enable();
 
             CurrentTiltAmount = 0f;
+            enabled = true;
         }
 
         public void Unlisten()
         {
+            enabled = false;
             tiltAction.Disable();
         }
 
         public void Update()
         {
+            if (!enabled)
+                return;
+
             currentInput = tiltAction.ReadValue<float>();
         }
 
         public void FixedUpdate()
         {
+            if (!enabled)
+                return;
+
             var absoluteTip = Math.Abs(CurrentTiltAmount);
             var inputTipMultiplier = Math.Max(1f, absoluteTip * tiltData.InputMultiplier);
             var inputTip = tiltData.InputTilt * currentInput * inputTipMultiplier;
@@ -47,6 +58,9 @@ namespace CliffJump.Input
 
             var difference = Math.Clamp(inputTip + latentTip, -tiltData.MaxTiltIncrease, tiltData.MaxTiltIncrease);
             CurrentTiltAmount += difference;
+            
+            if (CurrentTiltAmount > tiltData.FailureAngle || CurrentTiltAmount < -tiltData.FailureAngle)
+                TiltFailed?.Invoke();
         }
     }
 }

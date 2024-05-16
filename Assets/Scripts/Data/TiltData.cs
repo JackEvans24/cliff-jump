@@ -12,5 +12,7 @@ namespace CliffJump.Data
         public float LatentTiltMultiplier = 0.8f;
         
         public float MaxTiltIncrease = 10f;
+
+        public float FailureAngle = 45f;
     }
 }

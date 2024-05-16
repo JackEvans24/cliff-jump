@@ -1,4 +1,5 @@
-﻿using CliffJump.Data;
+﻿using System;
+using CliffJump.Data;
 using CliffJump.Input;
 using CliffJump.UI.Views;
 using UnityEngine;
@@ -21,12 +22,13 @@ namespace CliffJump.Controllers
 
         private void OnEnable()
         {
+            tiltListener.TiltFailed += OnTiltFailed;
             tiltListener.Listen(tiltData, tilt.ToInputAction());
         }
 
         private void OnDisable()
         {
-            tiltListener.Unlisten();
+            EndTilt();
         }
 
         private void Update()
@@ -38,6 +40,18 @@ namespace CliffJump.Controllers
         {
             tiltListener.FixedUpdate();
             view.SetUI(tiltListener.CurrentTiltAmount);
+        }
+
+        private void OnTiltFailed()
+        {
+            Debug.Log("FAILURE");
+            EndTilt();
+        }
+
+        private void EndTilt()
+        {
+            tiltListener.Unlisten();
+            tiltListener.TiltFailed -= OnTiltFailed;
         }
     }
 }
