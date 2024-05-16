@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CliffJump.Data;
+using CliffJump.Input;
 using CliffJump.UI.Views;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,54 +15,29 @@ namespace CliffJump.Controllers
         [SerializeField] private InputActionReference tilt;
 
         [Header("Tilt values")]
-        [SerializeField] private float tiltAmount = 0.1f;
-        [SerializeField] private float latentTilt = 0.01f;
-        [SerializeField] private float latentTiltMultiplier = 0.1f;
+        [SerializeField] private TiltData tiltData;
 
-        private InputAction tiltAction;
-        
-        private float currentInput;
-        private float currentTiltAmount;
-
-        private void Awake()
-        {
-            tiltAction = tilt.ToInputAction();
-        }
+        private readonly TiltListener tiltListener = new();
 
         private void OnEnable()
         {
-            tiltAction.Enable();
+            tiltListener.Listen(tiltData, tilt.ToInputAction());
         }
 
         private void OnDisable()
         {
-            tiltAction.Disable();
+            tiltListener.Unlisten();
         }
 
         private void Update()
         {
-            currentInput = tiltAction.ReadValue<float>();
+            tiltListener.Update();
         }
 
         private void FixedUpdate()
         {
-            Tilt();
-            view.SetLabel(currentTiltAmount);
-        }
-
-        private void Tilt()
-        {
-            var inputTip = tiltAmount * currentInput;
-
-            var latentDirection = Math.Sign(currentTiltAmount);
-            if (latentDirection == 0)
-                latentDirection = 1;
-
-            var latentMultiplier = Math.Max(1f, Math.Abs(currentTiltAmount) * latentTiltMultiplier);
-
-            var latentTip = latentTilt * latentDirection * latentMultiplier;
-
-            currentTiltAmount += inputTip + latentTip;
+            tiltListener.FixedUpdate();
+            view.SetUI(tiltListener.CurrentTiltAmount);
         }
     }
 }
