@@ -1,5 +1,4 @@
-﻿using System;
-using CliffJump.Data;
+﻿using CliffJump.Data;
 using CliffJump.Input;
 using CliffJump.UI.Views;
 using UnityEngine;
@@ -22,6 +21,8 @@ namespace CliffJump.Controllers
 
         private void OnEnable()
         {
+            view.SetBoundaryPositions(tiltData.FailureAngle);
+            
             tiltListener.TiltFailed += OnTiltFailed;
             tiltListener.Listen(tiltData, tilt.ToInputAction());
         }
