@@ -596,6 +596,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1687425316269569267, guid: 80438828423b5974399e4d4520d03762, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ae53100196e5284c8817016b6f14890, type: 2}
+    - target: {fileID: 1687425316269569267, guid: 80438828423b5974399e4d4520d03762, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1687425318388731616, guid: 80438828423b5974399e4d4520d03762, type: 3}
       propertyPath: m_RootOrder
       value: 4
