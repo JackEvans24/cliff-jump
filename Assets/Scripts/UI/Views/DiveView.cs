@@ -7,8 +7,15 @@ namespace CliffJump.UI.Views
     public class DiveView : MonoBehaviour
     {
         [SerializeField] private TMP_Text label;
+        [SerializeField] private Transform indicator;
 
-        public void SetLabel(float diveAngle)
+        public void SetUI(float diveAngle)
+        {
+            SetLabel(diveAngle);
+            SetIndicatorRotation(diveAngle);
+        }
+
+        private void SetLabel(float diveAngle)
         {
             var sb = new StringBuilder();
             
@@ -29,6 +36,12 @@ namespace CliffJump.UI.Views
                 sb.Append("<");
 
             label.text = sb.ToString();
+        }
+
+        private void SetIndicatorRotation(float diveAngle)
+        {
+            var rotation = 0 + diveAngle;
+            indicator.rotation = Quaternion.Euler(0, 0, rotation);
         }
     }
 }
