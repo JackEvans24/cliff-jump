@@ -48,6 +48,9 @@ namespace CliffJump.Controllers
 
             mashListener.Listen();
             
+            currentRunSpeed = 0f;
+            currentDeceleration = runDeceleration;
+
             timer.Start();
         }
 
@@ -55,6 +58,11 @@ namespace CliffJump.Controllers
         {
             mashListener.Unlisten();
             timer.Elapsed -= OnTimerElapsed;
+        }
+
+        private void OnDestroy()
+        {
+            mashListener.ButtonMashed -= OnMash;
         }
 
         private void FixedUpdate()
