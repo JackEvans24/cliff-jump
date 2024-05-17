@@ -12,6 +12,8 @@ namespace CliffJump.Controllers
         [SerializeField] private AimController aimController;
         [SerializeField] private DiveController diveController;
 
+        [SerializeField] private GameObject gameOverView;
+
         private readonly Queue<Action> pendingActions = new();
 
         private void OnEnable()
@@ -45,6 +47,18 @@ namespace CliffJump.Controllers
             }
         }
 
+        public void Restart()
+        {
+            runController.gameObject.SetActive(false);
+            jumpController.gameObject.SetActive(false);
+            aimController.gameObject.SetActive(false);
+            diveController.gameObject.SetActive(false);
+            
+            gameOverView.SetActive(false);
+            
+            StartGame();
+        }
+
         private void StartGame()
         {
             runController.gameObject.SetActive(true);
@@ -72,18 +86,17 @@ namespace CliffJump.Controllers
         {
             // TODO: straight to game over on fail
             Debug.Log($"JUMP FAILED");
-
-            pendingActions.Enqueue(() => jumpController.gameObject.SetActive(false));
-            pendingActions.Enqueue(() => aimController.gameObject.SetActive(true));
+            pendingActions.Enqueue(() => gameOverView.SetActive(true));
         }
 
         private void OnAimComplete(bool hitObstacle)
         {
-            // TODO: straight to game over on fail
             Debug.Log($"AIM COMPLETE, SUCCESS: {!hitObstacle}");
 
             pendingActions.Enqueue(() => aimController.gameObject.SetActive(false));
             pendingActions.Enqueue(() => diveController.gameObject.SetActive(true));
+            
+            // TODO: Transition to hit water view on hit
         }
 
         private void OnTiltSucceeded(float tiltAngle)
@@ -98,7 +111,8 @@ namespace CliffJump.Controllers
         {
             Debug.Log("TILT FAILED");
             
-            pendingActions.Enqueue(() => diveController.gameObject.SetActive(false));
+            // TODO: Transition to hit water view
+            pendingActions.Enqueue(() => gameOverView.SetActive(true));
         }
     }
 }
