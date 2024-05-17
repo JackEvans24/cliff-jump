@@ -66,7 +66,9 @@ namespace CliffJump.Controllers
         private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             EndTilt();
-            TiltSucceeded?.Invoke(tiltListener.CurrentTiltAmount);
+
+            var tiltAmount = Math.Abs(tiltListener.CurrentTiltAmount);
+            TiltSucceeded?.Invoke(tiltAmount);
         }
 
         private void EndTilt()
