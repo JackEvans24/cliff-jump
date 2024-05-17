@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using CliffJump.Data;
+using CliffJump.UI.Views;
 using UnityEngine;
 
 namespace CliffJump.Controllers
@@ -17,6 +19,8 @@ namespace CliffJump.Controllers
         [SerializeField] private GameObject winView;
 
         private readonly Queue<Action> pendingActions = new();
+
+        private GameResult gameResult;
 
         private void OnEnable()
         {
@@ -64,13 +68,14 @@ namespace CliffJump.Controllers
 
         private void StartGame()
         {
+            gameResult.Clear();
             runController.gameObject.SetActive(true);
         }
 
         private void OnRunComplete(float runSpeed)
         {
-            // TODO: Save run speed
             Debug.Log($"RUN COMPLETE: {runSpeed:0.00}");
+            gameResult.RunSpeed = runSpeed;
             
             pendingActions.Enqueue(() => runController.gameObject.SetActive(false));
             pendingActions.Enqueue(() => jumpController.gameObject.SetActive(true));
@@ -78,8 +83,8 @@ namespace CliffJump.Controllers
 
         private void OnJumpSucceeded(float timeRemaining)
         {
-            // TODO: Save QTE time
             Debug.Log($"JUMP COMPLETE: {timeRemaining:0.00}");
+            gameResult.QteTimeRemaining = timeRemaining;
 
             pendingActions.Enqueue(() => jumpController.gameObject.SetActive(false));
             pendingActions.Enqueue(() => aimController.gameObject.SetActive(true));
@@ -87,7 +92,6 @@ namespace CliffJump.Controllers
 
         private void OnJumpFailed()
         {
-            // TODO: straight to game over on fail
             Debug.Log($"JUMP FAILED");
             pendingActions.Enqueue(() => gameOverView.SetActive(true));
         }
@@ -104,8 +108,8 @@ namespace CliffJump.Controllers
 
         private void OnTiltSucceeded(float tiltAngle)
         {
-            // TODO: Save tilt angle
             Debug.Log($"TILT SUCCEEDED: {tiltAngle:0.00}");
+            gameResult.DiveAngle = tiltAngle;
             
             pendingActions.Enqueue(() => diveController.gameObject.SetActive(false));
             pendingActions.Enqueue(() => winView.SetActive(true));
@@ -115,8 +119,9 @@ namespace CliffJump.Controllers
         {
             Debug.Log("TILT FAILED");
             
-            // TODO: Transition to hit water view
             pendingActions.Enqueue(() => gameOverView.SetActive(true));
+            
+            // TODO: Transition to hit water view
         }
     }
 }
