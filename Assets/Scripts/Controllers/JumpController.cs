@@ -91,7 +91,7 @@ namespace CliffJump.Controllers
         {
             var timeRemaining = (float)(timer.TimeRemaining / 1000f);
 
-            Debug.Log($"SUCCESS: {timeRemaining}");
+            Debug.Log($"SUCCESS");
             QTEFinished();
             
             JumpSucceeded?.Invoke(timeRemaining);
