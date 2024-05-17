@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 8844777551322740166}
-  timerDuration: 1
+  timerDuration: 2
 --- !u!114 &8844777551322740166
 MonoBehaviour:
   m_ObjectHideFlags: 0
