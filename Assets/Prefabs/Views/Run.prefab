@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedMeter: {fileID: 1687425316269569266}
-  timerDuration: 10
+  timerDuration: 5
   runAcceleration: 8
   runDeceleration: 0.01
   actionReferences:

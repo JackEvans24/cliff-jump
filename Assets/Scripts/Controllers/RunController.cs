@@ -20,6 +20,7 @@ namespace CliffJump.Controllers
         [Header("RunSpeed")]
         [SerializeField] private float runAcceleration = 2f;
         [SerializeField] private float runDeceleration = 0.05f;
+        [SerializeField] private float minRunSpeed = 5f;
         
         [Header("Input")]
         [SerializeField] private InputActionReference[] actionReferences;
@@ -29,11 +30,6 @@ namespace CliffJump.Controllers
 
         private float currentRunSpeed;
         private float currentDeceleration;
-
-        public void StartTimer()
-        {
-            timer.Start();
-        }
 
         private void Awake()
         {
@@ -52,6 +48,11 @@ namespace CliffJump.Controllers
             timer.Elapsed += OnTimerElapsed;
 
             mashListener.Listen();
+            
+            currentRunSpeed = minRunSpeed;
+            currentDeceleration = runDeceleration;
+
+            timer.Start();
         }
 
         private void OnDisable()
@@ -60,9 +61,14 @@ namespace CliffJump.Controllers
             timer.Elapsed -= OnTimerElapsed;
         }
 
+        private void OnDestroy()
+        {
+            mashListener.ButtonMashed -= OnMash;
+        }
+
         private void FixedUpdate()
         {
-            currentRunSpeed = Mathf.Max(0f, currentRunSpeed - currentDeceleration);
+            currentRunSpeed = Mathf.Max(minRunSpeed, currentRunSpeed - currentDeceleration);
             currentDeceleration += runDeceleration;
 
             speedMeter.SetSpeedValue(currentRunSpeed);
@@ -77,9 +83,7 @@ namespace CliffJump.Controllers
         private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             timer.Stop();
-            
             RunComplete?.Invoke(currentRunSpeed);
-            Debug.Log($"FINAL SPEED: {currentRunSpeed}");
         }
     }
 }
