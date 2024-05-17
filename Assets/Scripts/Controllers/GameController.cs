@@ -31,7 +31,7 @@ namespace CliffJump.Controllers
             diveController.TiltSucceeded += OnTiltSucceeded;
             diveController.TiltFailed += OnTiltFailed;
         
-            StartGame();
+            Restart();
         }
 
         private void OnDisable()
@@ -63,11 +63,6 @@ namespace CliffJump.Controllers
             gameOverView.SetActive(false);
             winView.gameObject.SetActive(false);
             
-            StartGame();
-        }
-
-        private void StartGame()
-        {
             gameResult.Clear();
             runController.gameObject.SetActive(true);
         }
