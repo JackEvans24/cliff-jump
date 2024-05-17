@@ -37,6 +37,8 @@ namespace CliffJump.Controllers
             
             tiltListener.TiltFailed += OnTiltFailed;
             tiltListener.Listen(tiltData, tilt.ToInputAction());
+            
+            timer.Start();
         }
 
         private void OnDisable()

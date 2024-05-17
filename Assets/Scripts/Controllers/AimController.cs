@@ -17,22 +17,14 @@ namespace CliffJump.Controllers
 
         private readonly Timer timer = new();
 
-        public void ResetField()
-        {
-            view.SetUpField();
-        }
-
-        public void StartTimer()
-        {
-            timer.Start();
-        }
-
         private void OnEnable()
         {
             timer.Interval = timerDuration * 1000;
             timer.Elapsed += OnTimerElapsed;
             
             view.SetUpField();
+            
+            timer.Start();
         }
 
         private void OnDisable()
@@ -46,7 +38,6 @@ namespace CliffJump.Controllers
 
             var result = view.ReticuleOverlapsObstacle();
             AimComplete?.Invoke(result);
-            Debug.Log($"OVERLAP: {result}");
         }
     }
 }

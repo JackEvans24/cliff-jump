@@ -30,11 +30,6 @@ namespace CliffJump.Controllers
         private float currentRunSpeed;
         private float currentDeceleration;
 
-        public void StartTimer()
-        {
-            timer.Start();
-        }
-
         private void Awake()
         {
             foreach (var actionReference in actionReferences)
@@ -52,6 +47,8 @@ namespace CliffJump.Controllers
             timer.Elapsed += OnTimerElapsed;
 
             mashListener.Listen();
+            
+            timer.Start();
         }
 
         private void OnDisable()
@@ -77,9 +74,7 @@ namespace CliffJump.Controllers
         private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             timer.Stop();
-            
             RunComplete?.Invoke(currentRunSpeed);
-            Debug.Log($"FINAL SPEED: {currentRunSpeed}");
         }
     }
 }
