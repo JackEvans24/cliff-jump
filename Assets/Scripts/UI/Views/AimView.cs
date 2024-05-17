@@ -15,20 +15,11 @@ namespace CliffJump.UI.Views
 
         [Header("Field")] [SerializeField] private int obstacleCount;
 
-        private List<int> allObstacleIndices;
         private readonly List<AimObstacle> obstaclesToCheck = new();
-
-        private void Awake()
-        {
-            allObstacleIndices = Enumerable.Range(0, obstacles.Length).ToList();
-
-            foreach (var obstacle in obstacles)
-                obstacle.SetReticule(reticule);
-        }
 
         public void SetUpField()
         {
-            var obstacleIndices = new List<int>(allObstacleIndices);
+            var obstacleIndices = new List<int>(Enumerable.Range(0, obstacles.Length));
             while (obstacleIndices.Count > obstacleCount)
                 obstacleIndices.RemoveAt(Random.Range(0, obstacleIndices.Count));
 
@@ -37,6 +28,7 @@ namespace CliffJump.UI.Views
             for (var i = 0; i < obstacles.Length; i++)
             {
                 var obstacle = obstacles[i];
+                obstacle.SetReticule(reticule);
                 obstacle.gameObject.SetActive(obstacleIndices.Contains(i));
 
                 obstaclesToCheck.Add(obstacle);
