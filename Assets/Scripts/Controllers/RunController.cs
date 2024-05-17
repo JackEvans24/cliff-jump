@@ -20,6 +20,7 @@ namespace CliffJump.Controllers
         [Header("RunSpeed")]
         [SerializeField] private float runAcceleration = 2f;
         [SerializeField] private float runDeceleration = 0.05f;
+        [SerializeField] private float minRunSpeed = 5f;
         
         [Header("Input")]
         [SerializeField] private InputActionReference[] actionReferences;
@@ -48,7 +49,7 @@ namespace CliffJump.Controllers
 
             mashListener.Listen();
             
-            currentRunSpeed = 0f;
+            currentRunSpeed = minRunSpeed;
             currentDeceleration = runDeceleration;
 
             timer.Start();
@@ -67,7 +68,7 @@ namespace CliffJump.Controllers
 
         private void FixedUpdate()
         {
-            currentRunSpeed = Mathf.Max(0f, currentRunSpeed - currentDeceleration);
+            currentRunSpeed = Mathf.Max(minRunSpeed, currentRunSpeed - currentDeceleration);
             currentDeceleration += runDeceleration;
 
             speedMeter.SetSpeedValue(currentRunSpeed);
