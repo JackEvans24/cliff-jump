@@ -270,6 +270,7 @@ MonoBehaviour:
   aimController: {fileID: 1687718137}
   diveController: {fileID: 413357822}
   gameOverView: {fileID: 709185190}
+  winView: {fileID: 948542748}
 --- !u!4 &417336650
 Transform:
   m_ObjectHideFlags: 0

@@ -12,7 +12,9 @@ namespace CliffJump.Controllers
         [SerializeField] private AimController aimController;
         [SerializeField] private DiveController diveController;
 
+        [Header("End Game views")]
         [SerializeField] private GameObject gameOverView;
+        [SerializeField] private GameObject winView;
 
         private readonly Queue<Action> pendingActions = new();
 
@@ -55,6 +57,7 @@ namespace CliffJump.Controllers
             diveController.gameObject.SetActive(false);
             
             gameOverView.SetActive(false);
+            winView.SetActive(false);
             
             StartGame();
         }
@@ -105,6 +108,7 @@ namespace CliffJump.Controllers
             Debug.Log($"TILT SUCCEEDED: {tiltAngle:0.00}");
             
             pendingActions.Enqueue(() => diveController.gameObject.SetActive(false));
+            pendingActions.Enqueue(() => winView.SetActive(true));
         }
 
         private void OnTiltFailed()
