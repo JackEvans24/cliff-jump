@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Timers;
 using CliffJump.Input;
 using CliffJump.UI;
+using CliffJump.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,8 +13,13 @@ namespace CliffJump.Controllers
     {
         public event Action<float> RunComplete;
 
+        [Header("Intro")]
+        [SerializeField] private float introDuration = 2;
+
         [Header("UI")]
         [SerializeField] private SpeedMeter speedMeter;
+        [SerializeField] private TimerBar timerBar;
+        [SerializeField] private OverlayText overlayText;
 
         [Header("Timer")]
         [SerializeField] private float timerDuration = 5;
@@ -26,10 +33,11 @@ namespace CliffJump.Controllers
         [SerializeField] private InputActionReference[] actionReferences;
 
         private readonly ButtonMashListener mashListener = new();
-        private readonly Timer timer = new();
+        private readonly TimerPlus timer = new();
 
         private float currentRunSpeed;
         private float currentDeceleration;
+        private float finalRunSpeed;
 
         private void Awake()
         {
@@ -38,39 +46,55 @@ namespace CliffJump.Controllers
                 var action = actionReference.ToInputAction();
                 mashListener.AddAction(action);
             }
-
-            mashListener.ButtonMashed += OnMash;
         }
 
         private void OnEnable()
         {
+            mashListener.ButtonMashed += OnMash;
+            
             timer.Interval = timerDuration * 1000;
             timer.Elapsed += OnTimerElapsed;
-
-            mashListener.Listen();
             
             currentRunSpeed = minRunSpeed;
             currentDeceleration = runDeceleration;
+            finalRunSpeed = minRunSpeed;
+            
+            speedMeter.SetSpeedValue(currentRunSpeed);
+            overlayText.DisplayText("RUN");
 
-            timer.Start();
+            StartCoroutine(StartAfterIntro());
         }
 
         private void OnDisable()
         {
             mashListener.Unlisten();
+            mashListener.ButtonMashed -= OnMash;
+            
             timer.Elapsed -= OnTimerElapsed;
         }
 
-        private void OnDestroy()
+        private IEnumerator StartAfterIntro()
         {
-            mashListener.ButtonMashed -= OnMash;
+            yield return new WaitForSeconds(introDuration);
+
+            mashListener.Listen();
+            
+            // TODO: Display UI
+            
+            timerBar.Initialise(timerDuration);
+
+            timer.Start();
         }
 
         private void FixedUpdate()
         {
+            if (!mashListener.Enabled)
+                return;
+
             currentRunSpeed = Mathf.Max(minRunSpeed, currentRunSpeed - currentDeceleration);
             currentDeceleration += runDeceleration;
-
+            
+            timerBar.UpdateTimer(timer.TimeRemaining);
             speedMeter.SetSpeedValue(currentRunSpeed);
         }
 
@@ -83,7 +107,14 @@ namespace CliffJump.Controllers
         private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             timer.Stop();
-            RunComplete?.Invoke(currentRunSpeed);
+            finalRunSpeed = currentRunSpeed;
+            
+            // TODO: Add outro animation
+            
+            // TODO: Hide UI
+            timerBar.FadeSprites(false);
+            
+            RunComplete?.Invoke(finalRunSpeed);
         }
     }
 }

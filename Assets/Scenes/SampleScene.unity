@@ -3377,6 +3377,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1687425318388731617, guid: 80438828423b5974399e4d4520d03762, type: 3}
+      propertyPath: overlayText
+      value: 
+      objectReference: {fileID: 1990829792}
     - target: {fileID: 1687425318388731630, guid: 80438828423b5974399e4d4520d03762, type: 3}
       propertyPath: m_Name
       value: Run
