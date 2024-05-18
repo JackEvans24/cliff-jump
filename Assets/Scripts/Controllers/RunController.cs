@@ -24,6 +24,7 @@ namespace CliffJump.Controllers
         [SerializeField] private SpeedMeter speedMeter;
         [SerializeField] private TimerBar timerBar;
         [SerializeField] private OverlayText overlayText;
+        [SerializeField] private GameObject mashUI;
 
         [Header("Timer")]
         [SerializeField] private float timerDuration = 5;
@@ -79,8 +80,7 @@ namespace CliffJump.Controllers
 
             mashListener.Listen();
             
-            // TODO: Display UI
-            
+            mashUI.SetActive(true);
             timerBar.Initialise(timerDuration);
 
             timer.Start();
@@ -122,7 +122,7 @@ namespace CliffJump.Controllers
 
         private IEnumerator DoOutro()
         {
-            // TODO: Hide UI
+            mashUI.SetActive(false);
             timerBar.FadeSprites(false);
             
             characterAnimator.SetTrigger(Outro);
