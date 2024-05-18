@@ -52,9 +52,9 @@ MonoBehaviour:
   - {fileID: 6435687235247498364}
   - {fileID: 6435687235067322604}
   fadeTime: 0.1
-  shakeThreshold: 0.5
-  shakeStrength: 3
-  shakeTime: 0.05
+  shakeThreshold: 0.25
+  shakeStrength: 1
+  shakeTime: 0.02
 --- !u!1 &6435687235067322602
 GameObject:
   m_ObjectHideFlags: 0
