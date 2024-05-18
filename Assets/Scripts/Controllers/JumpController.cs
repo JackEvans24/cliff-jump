@@ -89,7 +89,7 @@ namespace CliffJump.Controllers
 
         private void OnQteSucceeded()
         {
-            var timeRemaining = (float)(timer.TimeRemaining / 1000f);
+            var timeRemaining = timer.TimeRemaining;
 
             Debug.Log($"SUCCESS");
             QTEFinished();

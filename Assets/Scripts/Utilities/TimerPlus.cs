@@ -15,7 +15,7 @@ namespace CliffJump.Utilities
             base.Dispose();
         }
 
-        public double TimeRemaining => (m_dueTime - DateTime.Now).TotalMilliseconds;
+        public float TimeRemaining => (float)(m_dueTime - DateTime.Now).TotalMilliseconds / 1000f;
         
         public new void Start()
         {
