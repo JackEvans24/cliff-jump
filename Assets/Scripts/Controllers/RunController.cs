@@ -16,6 +16,10 @@ namespace CliffJump.Controllers
         [Header("Intro")]
         [SerializeField] private float introDuration = 2;
 
+        [Header("Outro")]
+        [SerializeField] private float outroDuration = 2;
+        [SerializeField] private Animator characterAnimator;
+
         [Header("UI")]
         [SerializeField] private SpeedMeter speedMeter;
         [SerializeField] private TimerBar timerBar;
@@ -38,6 +42,10 @@ namespace CliffJump.Controllers
         private float currentRunSpeed;
         private float currentDeceleration;
         private float finalRunSpeed;
+
+        private bool triggerOutro;
+        
+        private static readonly int Outro = Animator.StringToHash("Outro");
 
         private void Awake()
         {
@@ -62,18 +70,10 @@ namespace CliffJump.Controllers
             speedMeter.SetSpeedValue(currentRunSpeed);
             overlayText.DisplayText("RUN");
 
-            StartCoroutine(StartAfterIntro());
+            StartCoroutine(DoIntro());
         }
 
-        private void OnDisable()
-        {
-            mashListener.Unlisten();
-            mashListener.ButtonMashed -= OnMash;
-            
-            timer.Elapsed -= OnTimerElapsed;
-        }
-
-        private IEnumerator StartAfterIntro()
+        private IEnumerator DoIntro()
         {
             yield return new WaitForSeconds(introDuration);
 
@@ -88,6 +88,12 @@ namespace CliffJump.Controllers
 
         private void FixedUpdate()
         {
+            if (triggerOutro)
+            {
+                triggerOutro = false;
+                StartCoroutine(DoOutro());
+            }
+
             if (!mashListener.Enabled)
                 return;
 
@@ -108,13 +114,28 @@ namespace CliffJump.Controllers
         {
             timer.Stop();
             finalRunSpeed = currentRunSpeed;
-            
-            // TODO: Add outro animation
-            
+
+            mashListener.Unlisten();
+
+            triggerOutro = true;
+        }
+
+        private IEnumerator DoOutro()
+        {
             // TODO: Hide UI
             timerBar.FadeSprites(false);
             
+            characterAnimator.SetTrigger(Outro);
+
+            yield return new WaitForSeconds(outroDuration);
+            
             RunComplete?.Invoke(finalRunSpeed);
+        }
+
+        private void OnDisable()
+        {
+            timer.Elapsed -= OnTimerElapsed;
+            mashListener.ButtonMashed -= OnMash;
         }
     }
 }

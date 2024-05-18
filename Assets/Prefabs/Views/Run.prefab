@@ -487,8 +487,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   introDuration: 2
+  outroDuration: 2
+  characterAnimator: {fileID: 5733119834538651583}
   speedMeter: {fileID: 1687425316269569266}
   timerBar: {fileID: 5189502219714541473}
+  overlayText: {fileID: 0}
   timerDuration: 5
   runAcceleration: 8
   runDeceleration: 0.01
