@@ -8,6 +8,8 @@ namespace CliffJump.Input
     public class ButtonMashListener
     {
         public event Action ButtonMashed;
+        
+        public bool Enabled { get; private set; }
 
         private readonly List<InputAction> actions = new();
         private int currentActionIndex = 0;
@@ -27,10 +29,14 @@ namespace CliffJump.Input
                 action.Enable();
                 action.started += OnStarted;
             }
+
+            Enabled = true;
         }
 
         public void Unlisten()
         {
+            Enabled = false;
+
             foreach (var action in actions)
             {
                 action.started -= OnStarted;
