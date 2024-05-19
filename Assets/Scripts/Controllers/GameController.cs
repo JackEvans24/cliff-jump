@@ -92,6 +92,7 @@ namespace CliffJump.Controllers
         private void OnTiltSucceeded(float tiltAngle)
         {
             gameResult.DiveAngle = tiltAngle;
+            winView.SetResults(gameResult);
             
             diveController.gameObject.SetActive(false);
             TransitionToSplash(ObstacleType.None);
@@ -107,8 +108,10 @@ namespace CliffJump.Controllers
         {
             splashController.SetAnimationObjects(obstacleType);
             splashController.gameObject.SetActive(true);
-            
-            // TODO: GAME OVER AND WIN VIEWS
         }
+
+        public void ShowWinScreen() => winView.gameObject.SetActive(true);
+
+        public void ShowLoseScreen() => gameOverView.SetActive(true);
     }
 }

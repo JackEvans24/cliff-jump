@@ -540,6 +540,7 @@ MonoBehaviour:
   jumpController: {fileID: 1318227980}
   aimController: {fileID: 1687718137}
   diveController: {fileID: 413357822}
+  splashController: {fileID: 1607299075}
   winView: {fileID: 948542750}
   gameOverView: {fileID: 709185190}
 --- !u!4 &417336650
@@ -2609,6 +2610,17 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!114 &1607299075 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+  m_PrefabInstance: {fileID: 1080137953142271997}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109c691710f143c49c6184e171686019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1652972710
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,6 +3389,123 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076655614}
   m_CullTransparentMesh: 1
+--- !u!1001 &1080137953142271997
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1080137951620046844, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_Name
+      value: Splash
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046844, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 417336649}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 417336649}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowWinScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowLoseScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CliffJump.Controllers.GameController, CliffJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CliffJump.Controllers.GameController, CliffJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046847, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
 --- !u!1001 &1103888903574240679
 PrefabInstance:
   m_ObjectHideFlags: 0
