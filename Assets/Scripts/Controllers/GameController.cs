@@ -56,7 +56,6 @@ namespace CliffJump.Controllers
 
         private void OnRunComplete(float runSpeed)
         {
-            Debug.Log($"RUN COMPLETE: {runSpeed:0.00}");
             gameResult.RunSpeed = runSpeed;
             
             runController.gameObject.SetActive(false);
@@ -65,7 +64,6 @@ namespace CliffJump.Controllers
 
         private void OnJumpSucceeded(float timeRemaining)
         {
-            Debug.Log($"JUMP COMPLETE: {timeRemaining:0.00}");
             gameResult.QteTimeRemaining = timeRemaining;
 
             jumpController.gameObject.SetActive(false);
@@ -74,14 +72,11 @@ namespace CliffJump.Controllers
 
         private void OnJumpFailed()
         {
-            Debug.Log($"JUMP FAILED");
             gameOverView.SetActive(true);
         }
 
         private void OnAimComplete(bool hitObstacle)
         {
-            Debug.Log($"AIM COMPLETE, SUCCESS: {!hitObstacle}");
-            
             if (hitObstacle)
                 gameOverView.SetActive(true);
             else
@@ -95,7 +90,6 @@ namespace CliffJump.Controllers
 
         private void OnTiltSucceeded(float tiltAngle)
         {
-            Debug.Log($"TILT SUCCEEDED: {tiltAngle:0.00}");
             gameResult.DiveAngle = tiltAngle;
             
             diveController.gameObject.SetActive(false);
@@ -107,8 +101,6 @@ namespace CliffJump.Controllers
 
         private void OnTiltFailed()
         {
-            Debug.Log("TILT FAILED");
-            
             gameOverView.SetActive(true);
             
             // TODO: Transition to hit water view
