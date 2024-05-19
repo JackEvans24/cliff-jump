@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using CliffJump.UI;
 using CliffJump.UI.Views;
 using CliffJump.Utilities;
@@ -10,7 +9,7 @@ namespace CliffJump.Controllers
 {
     public class AimController : MonoBehaviour
     {
-        public event Action<bool> AimComplete;
+        public event Action<ObstacleType> AimComplete;
         
         [Header("References")]
         [SerializeField] private AimView view;
@@ -49,23 +48,23 @@ namespace CliffJump.Controllers
 
         private void OnTimerElapsed()
         {
-            var hitObstacle = view.ReticuleOverlapsObstacle();
+            var aimResult = view.ReticuleOverlapsObstacle();
             
             reticule.SetActive(false);
 
-            if (hitObstacle)
-                feedback.DoNegativeFeedback();
-            else
+            if (aimResult == ObstacleType.None)
                 feedback.DoPositiveFeedback();
+            else
+                feedback.DoNegativeFeedback();
 
-            StartCoroutine(DoOutro(hitObstacle));
+            StartCoroutine(DoOutro(aimResult));
         }
 
-        private IEnumerator DoOutro(bool hitObstacle)
+        private IEnumerator DoOutro(ObstacleType aimResult)
         {
             yield return new WaitForSeconds(outroDuration);
 
-            AimComplete?.Invoke(hitObstacle);
+            AimComplete?.Invoke(aimResult);
         }
 
         private void OnDisable()
