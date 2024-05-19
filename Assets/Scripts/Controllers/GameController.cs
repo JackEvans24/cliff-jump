@@ -1,4 +1,5 @@
 ﻿using CliffJump.Data;
+using CliffJump.UI;
 using CliffJump.UI.Views;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ namespace CliffJump.Controllers
         [SerializeField] private JumpController jumpController;
         [SerializeField] private AimController aimController;
         [SerializeField] private DiveController diveController;
-
+        [SerializeField] private SplashController splashController;
+        
         [Header("End Game views")]
         [SerializeField] private WinView winView;
         [SerializeField] private GameObject gameOverView;
@@ -46,12 +48,14 @@ namespace CliffJump.Controllers
             jumpController.gameObject.SetActive(false);
             aimController.gameObject.SetActive(false);
             diveController.gameObject.SetActive(false);
+            splashController.gameObject.SetActive(false);
             
             gameOverView.SetActive(false);
             winView.gameObject.SetActive(false);
             
             gameResult.Clear();
-            runController.gameObject.SetActive(true);
+            // runController.gameObject.SetActive(true);
+            aimController.gameObject.SetActive(true);
         }
 
         private void OnRunComplete(float runSpeed)
@@ -75,17 +79,14 @@ namespace CliffJump.Controllers
             gameOverView.SetActive(true);
         }
 
-        private void OnAimComplete(bool hitObstacle)
+        private void OnAimComplete(ObstacleType aimResult)
         {
-            if (hitObstacle)
-                gameOverView.SetActive(true);
-            else
-            {
-                aimController.gameObject.SetActive(false);
-                diveController.gameObject.SetActive(true);
-            }
+            aimController.gameObject.SetActive(false);
             
-            // TODO: Transition to hit water view on hit
+            if (aimResult != ObstacleType.None)
+                TransitionToSplash(aimResult);
+            else
+                diveController.gameObject.SetActive(true);
         }
 
         private void OnTiltSucceeded(float tiltAngle)
@@ -93,17 +94,21 @@ namespace CliffJump.Controllers
             gameResult.DiveAngle = tiltAngle;
             
             diveController.gameObject.SetActive(false);
-            winView.SetResults(gameResult);
-            winView.gameObject.SetActive(true);
-            
-            // TODO: Transition to clean dive view
+            TransitionToSplash(ObstacleType.None);
         }
 
         private void OnTiltFailed()
         {
-            gameOverView.SetActive(true);
+            diveController.gameObject.SetActive(false);
+            TransitionToSplash(ObstacleType.Tilt);
+        }
+
+        private void TransitionToSplash(ObstacleType obstacleType)
+        {
+            splashController.SetAnimationObjects(obstacleType);
+            splashController.gameObject.SetActive(true);
             
-            // TODO: Transition to hit water view
+            // TODO: GAME OVER AND WIN VIEWS
         }
     }
 }
