@@ -33,11 +33,14 @@ namespace CliffJump.UI.Views
 
                 obstaclesToCheck.Add(obstacle);
             }
+            
+            cliff.SetReticule(reticule);
+            obstaclesToCheck.Add(cliff);
         }
 
         public bool ReticuleOverlapsObstacle()
         {
-            return cliff.ReticuleWithinBounds || obstaclesToCheck.Any(ob => ob.ReticuleWithinBounds);
+            return obstaclesToCheck.Any(ob => ob.ReticuleWithinBounds);
         }
     }
 }
