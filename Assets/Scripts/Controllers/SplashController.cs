@@ -10,6 +10,7 @@ namespace CliffJump.Controllers
         [SerializeField] private GameObject successObj;
         [SerializeField] private GameObject rockObj;
         [SerializeField] private GameObject boatObj;
+        [SerializeField] private GameObject tiltObj;
 
         public UnityEvent triggerWinScreen;
         public UnityEvent triggerLoseScreen;
@@ -19,6 +20,7 @@ namespace CliffJump.Controllers
             successObj.SetActive(obstacleType == ObstacleType.None);
             rockObj.SetActive(obstacleType == ObstacleType.Rock || obstacleType == ObstacleType.Cliff);
             boatObj.SetActive(obstacleType == ObstacleType.Boat);
+            tiltObj.SetActive(obstacleType == ObstacleType.Tilt);
         }
 
         public void TriggerWin() => triggerWinScreen?.Invoke();
