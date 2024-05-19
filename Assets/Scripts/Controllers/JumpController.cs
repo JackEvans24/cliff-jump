@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using CliffJump.Data;
 using CliffJump.Input;
+using CliffJump.UI;
 using CliffJump.UI.Views;
 using CliffJump.Utilities;
 using UnityEngine;
@@ -20,6 +22,21 @@ namespace CliffJump.Controllers
         [Header("References")]
         [SerializeField] private JumpView view;
         
+        [Header("Intro")]
+        [SerializeField] private float preIntroDuration = 1;
+        [SerializeField] private float introDuration = 2;
+
+        [Header("Outro")]
+        [SerializeField] private float outroDuration = 1;
+        [SerializeField] private Animator characterAnimator;
+        private static readonly int SuccessTrigger = Animator.StringToHash("Success");
+        private static readonly int FailureTrigger = Animator.StringToHash("Failure");
+
+        [Header("UI")]
+        [SerializeField] private TimerBar timerBar;
+        [SerializeField] private OverlayText overlayText;
+        [SerializeField] private FeedbackOverlay feedback;
+
         [Header("Input")]
         [SerializeField] private int qteLength = 3;
         [SerializeField] private QTEAction[] qteActions;
@@ -27,30 +44,34 @@ namespace CliffJump.Controllers
         [Header("Timer")]
         [SerializeField] private float timerDuration = 3;
 
+        private readonly Queue<Action> pendingActions = new();
         private readonly QTEListener qteListener = new();
         private readonly TimerPlus timer = new();
 
         private void OnEnable()
         {
+            characterAnimator.ResetTrigger(SuccessTrigger);
+            characterAnimator.ResetTrigger(FailureTrigger);
+
             timer.Interval = timerDuration * 1000;
             timer.Elapsed += OnTimerElapsed;
 
             qteListener.Progress += OnQteProgress;
             qteListener.Succeeded += OnQteSucceeded;
             qteListener.Failed += OnQteFailed;
-            
-            StartQTE();
+
+            StartCoroutine(DoIntro());
         }
 
-        private void OnDisable()
+        private IEnumerator DoIntro()
         {
-            timer.Elapsed -= OnTimerElapsed;
+            yield return new WaitForSeconds(preIntroDuration);
+            
+            overlayText.DisplayText("JUMP");
 
-            qteListener.Unlisten();
+            yield return new WaitForSeconds(introDuration);
 
-            qteListener.Progress -= OnQteProgress;
-            qteListener.Succeeded -= OnQteSucceeded;
-            qteListener.Failed -= OnQteFailed;
+            StartQTE();
         }
 
         private void StartQTE()
@@ -63,6 +84,8 @@ namespace CliffJump.Controllers
 
             var inputActions = GenerateQTEQueue();
             qteListener.Listen(actions, inputActions);
+            
+            timerBar.Initialise(timerDuration);
             
             timer.Start();
         }
@@ -82,41 +105,75 @@ namespace CliffJump.Controllers
             return inputActions;
         }
 
+        private void FixedUpdate()
+        {
+            if (qteListener.Enabled)
+                timerBar.UpdateTimer(timer.TimeRemaining);
+
+            while (pendingActions.Count > 0)
+            {
+                var action = pendingActions.Dequeue();
+                action.Invoke();
+            }
+        }
+
         private void OnQteProgress()
         {
-            Debug.Log("CORRECT BUTTON PRESS");
+            pendingActions.Enqueue(() => feedback.DoPositiveFeedback());
+            pendingActions.Enqueue(() => view.UpdateActiveLabel());
         }
 
         private void OnQteSucceeded()
         {
-            var timeRemaining = timer.TimeRemaining;
-
-            Debug.Log($"SUCCESS");
-            QTEFinished();
-            
-            JumpSucceeded?.Invoke(timeRemaining);
+            pendingActions.Enqueue(() => feedback.DoPositiveFeedback());
+            pendingActions.Enqueue(() => view.UpdateActiveLabel());
+            pendingActions.Enqueue(() => StartCoroutine(DoOutro(true, timer.TimeRemaining)));
         }
 
         private void OnQteFailed()
         {
-            Debug.Log("FAILURE");
-            QTEFinished();
-            
-            JumpFailed?.Invoke();
+            pendingActions.Enqueue(() => feedback.DoNegativeFeedback());
+            pendingActions.Enqueue(() => StartCoroutine(DoOutro(false)));
         }
 
         private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            Debug.Log("TIME'S UP");
+            pendingActions.Enqueue(() => feedback.DoNegativeFeedback());
+            pendingActions.Enqueue(() => StartCoroutine(DoOutro(false)));
+        }
+
+        private IEnumerator DoOutro(bool success, float timeRemaining = 0f)
+        {
             QTEFinished();
             
-            JumpFailed?.Invoke();
+            characterAnimator.SetTrigger(success ? SuccessTrigger : FailureTrigger);
+
+            yield return new WaitForSeconds(outroDuration);
+
+            if (success)
+                JumpSucceeded?.Invoke(timeRemaining);
+            else
+                JumpFailed?.Invoke();
         }
 
         private void QTEFinished()
         {
             qteListener.Unlisten();
             timer.Stop();
+            
+            timerBar.Hide();
+            view.ClearView();
+        }
+
+        private void OnDisable()
+        {
+            timer.Elapsed -= OnTimerElapsed;
+
+            qteListener.Unlisten();
+
+            qteListener.Progress -= OnQteProgress;
+            qteListener.Succeeded -= OnQteSucceeded;
+            qteListener.Failed -= OnQteFailed;
         }
     }
 }

@@ -10,6 +10,8 @@ namespace CliffJump.Input
         public event Action Progress;
         public event Action Succeeded;
         public event Action Failed;
+        
+        public bool Enabled { get; private set; }
 
         private InputAction[] possibleActions;
         private Queue<InputAction> actionQueue;
@@ -30,10 +32,14 @@ namespace CliffJump.Input
                 action.Enable();
                 action.started += OnStarted;
             }
+
+            Enabled = true;
         }
 
         public void Unlisten()
         {
+            Enabled = false;
+
             foreach (var action in possibleActions)
             {
                 action.started -= OnStarted;

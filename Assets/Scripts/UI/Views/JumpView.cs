@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CliffJump.Data;
-using TMPro;
 using UnityEngine;
 
 namespace CliffJump.UI.Views
@@ -8,14 +7,15 @@ namespace CliffJump.UI.Views
     public class JumpView : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private Canvas canvas;
-        [SerializeField] private TMP_Text textPrefab;
+        [SerializeField] private QTEDisplay qteDisplay;
 
         [Header("Spacing")]
         [SerializeField] private Vector2 origin;
         [SerializeField] private Vector2 offset;
         
-        private readonly List<TMP_Text> currentPrefabs = new();
+        private readonly List<QTEDisplay> currentPrefabs = new();
+
+        private int currentQteIndex;
 
         public void ClearView()
         {
@@ -23,16 +23,28 @@ namespace CliffJump.UI.Views
                 Destroy(tmp.gameObject);
 
             currentPrefabs.Clear();
+            currentQteIndex = 0;
         }
 
         public void AddQTELabel(QTEAction action)
         {
-            var tmp = Instantiate(textPrefab, canvas.transform);
-            tmp.text = action.Label;
+            var qte = Instantiate(qteDisplay, transform);
+            qte.Initialise(action.Direction);
+            qte.SetActive(currentPrefabs.Count == 0);
 
-            tmp.transform.localPosition = origin + (offset * currentPrefabs.Count);
+            qte.transform.localPosition = origin + (offset * currentPrefabs.Count);
             
-            currentPrefabs.Add(tmp);
+            currentPrefabs.Add(qte);
+        }
+
+        public void UpdateActiveLabel()
+        {
+            currentQteIndex++;
+            for (int i = 0; i < currentPrefabs.Count; i++)
+            {
+                var qteLabel = currentPrefabs[i];
+                qteLabel.SetActive(i == currentQteIndex);
+            }
         }
     }
 }
