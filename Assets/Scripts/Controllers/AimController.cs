@@ -28,8 +28,6 @@ namespace CliffJump.Controllers
         [Header("Timer")]
         [SerializeField] private float timerDuration = 1.5f;
 
-        private readonly Queue<Action> pendingActions = new();
-
         private void OnEnable()
         {
             timer.Elapsed += OnTimerElapsed;
@@ -48,25 +46,11 @@ namespace CliffJump.Controllers
             reticule.SetActive(true);
             timer.StartTimer(timerDuration);
         }
-        
-        private void FixedUpdate()
-        {
-            while (pendingActions.Count > 0)
-            {
-                var action = pendingActions.Dequeue();
-                action.Invoke();
-            }
-        }
 
         private void OnTimerElapsed()
         {
-            var result = view.ReticuleOverlapsObstacle();
-            Debug.Log($"HIT OBSTACLE: {result}");
-            pendingActions.Enqueue(() => StartCoroutine(DoOutro(result)));
-        }
-
-        private IEnumerator DoOutro(bool hitObstacle)
-        {
+            var hitObstacle = view.ReticuleOverlapsObstacle();
+            
             reticule.SetActive(false);
 
             if (hitObstacle)
@@ -74,7 +58,13 @@ namespace CliffJump.Controllers
             else
                 feedback.DoPositiveFeedback();
 
+            StartCoroutine(DoOutro(hitObstacle));
+        }
+
+        private IEnumerator DoOutro(bool hitObstacle)
+        {
             yield return new WaitForSeconds(outroDuration);
+
             AimComplete?.Invoke(hitObstacle);
         }
 

@@ -37,7 +37,6 @@ namespace CliffJump.Controllers
         [Header("Tilt values")]
         [SerializeField] private TiltData tiltData;
 
-        private readonly Queue<Action> pendingActions = new();
         private readonly TiltListener tiltListener = new();
 
         private void OnEnable()
@@ -72,16 +71,7 @@ namespace CliffJump.Controllers
 
         private void Update()
         {
-            if (!tiltListener.Enabled)
-                return;
-            
             tiltListener.Update();
-
-            while (pendingActions.Count > 0)
-            {
-                var action = pendingActions.Dequeue();
-                action.Invoke();
-            }
         }
 
         private void FixedUpdate()
@@ -92,24 +82,23 @@ namespace CliffJump.Controllers
 
         private void OnTiltFailed()
         {
-            pendingActions.Enqueue(() => StartCoroutine(DoEndTilt(false)));
+            feedback.DoNegativeFeedback();
+            EndTilt();
+            
+            StartCoroutine(DoOutro(false));
         }
 
         private void OnTimerElapsed()
         {
+            feedback.DoPositiveFeedback();
+            EndTilt();
+
             var tiltAmount = Math.Abs(tiltListener.CurrentTiltAmount);
-            pendingActions.Enqueue(() => StartCoroutine(DoEndTilt(true, tiltAmount)));
+            StartCoroutine(DoOutro(true, tiltAmount));
         }
 
-        private IEnumerator DoEndTilt(bool success, float tiltAngle = 0f)
+        private IEnumerator DoOutro(bool success, float tiltAngle = 0f)
         {
-            EndTilt();
-            
-            if (success)
-                feedback.DoPositiveFeedback();
-            else
-                feedback.DoNegativeFeedback();
-
             yield return new WaitForSeconds(outroDuration);
             
             if (success)

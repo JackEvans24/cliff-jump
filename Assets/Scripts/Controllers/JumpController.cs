@@ -43,7 +43,6 @@ namespace CliffJump.Controllers
         [Header("Timer")]
         [SerializeField] private float timerDuration = 3;
 
-        private readonly Queue<Action> pendingActions = new();
         private readonly QTEListener qteListener = new();
 
         private void OnEnable()
@@ -100,46 +99,44 @@ namespace CliffJump.Controllers
             return inputActions;
         }
 
-        private void FixedUpdate()
-        {
-            while (pendingActions.Count > 0)
-            {
-                var action = pendingActions.Dequeue();
-                action.Invoke();
-            }
-        }
-
         private void OnQteProgress()
         {
-            pendingActions.Enqueue(() => feedback.DoPositiveFeedback());
-            pendingActions.Enqueue(() => view.UpdateActiveLabel());
+            feedback.DoPositiveFeedback();
+            view.UpdateActiveLabel();
         }
 
         private void OnQteSucceeded()
         {
-            pendingActions.Enqueue(() => feedback.DoPositiveFeedback());
-            pendingActions.Enqueue(() => view.UpdateActiveLabel());
-            pendingActions.Enqueue(() => StartCoroutine(DoOutro(true, timer.TimeRemaining)));
+            feedback.DoPositiveFeedback();
+            QTEFinished();
+
+            characterAnimator.SetTrigger(SuccessTrigger);
+
+            StartCoroutine(DoOutro(true, timer.TimeRemaining));
         }
 
         private void OnQteFailed()
         {
-            pendingActions.Enqueue(() => feedback.DoNegativeFeedback());
-            pendingActions.Enqueue(() => StartCoroutine(DoOutro(false)));
+            feedback.DoNegativeFeedback();
+            QTEFinished();
+
+            characterAnimator.SetTrigger(FailureTrigger);
+
+            StartCoroutine(DoOutro(false));
         }
 
         private void OnTimerElapsed()
         {
-            pendingActions.Enqueue(() => feedback.DoNegativeFeedback());
-            pendingActions.Enqueue(() => StartCoroutine(DoOutro(false)));
+            feedback.DoNegativeFeedback();
+            QTEFinished();
+
+            characterAnimator.SetTrigger(FailureTrigger);
+
+            StartCoroutine(DoOutro(false));
         }
 
         private IEnumerator DoOutro(bool success, float timeRemaining = 0f)
         {
-            QTEFinished();
-            
-            characterAnimator.SetTrigger(success ? SuccessTrigger : FailureTrigger);
-
             yield return new WaitForSeconds(outroDuration);
 
             if (success)
