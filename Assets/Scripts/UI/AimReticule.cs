@@ -15,6 +15,10 @@ namespace CliffJump.UI
         [Header("Input")]
         [SerializeField] private InputActionReference movementReference;
 
+        [Header("Bounds")]
+        [SerializeField] private Vector2 min;
+        [SerializeField] private Vector2 max;
+
         private Collider2D coll;
 
         private InputAction movementAction;
@@ -45,6 +49,9 @@ namespace CliffJump.UI
         private void FixedUpdate()
         {
             transform.Translate(movement);
+
+            transform.position = Vector3.Max(min, transform.position);
+            transform.position = Vector3.Min(max, transform.position);
         }
     }
 }

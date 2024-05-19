@@ -252,7 +252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8844777550796370359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -274,6 +274,8 @@ MonoBehaviour:
   moveSpeed: 0.1
   smoothing: 0.05
   movementReference: {fileID: -7305304685752661129, guid: 89b86ee713f346741b6416163b8ccd6c, type: 3}
+  min: {x: -1.6, y: -0.9}
+  max: {x: 1.6, y: 0.9}
 --- !u!212 &8844777550796370357
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -411,7 +413,7 @@ MonoBehaviour:
   reticule: {fileID: 8844777550796370359}
   introDuration: 2
   outroDuration: 0.3
-  timerDuration: 2
+  timerDuration: 1
 --- !u!114 &8844777551322740166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,7 +455,7 @@ MonoBehaviour:
   - {fileID: 7173825722659182206}
   - {fileID: 4704458137794729550}
   - {fileID: 7905328867209397227}
-  reticuleStartPosition: {x: -0.7, y: 0}
+  reticuleStartPosition: {x: -1, y: 0}
   obstacleCount: 10
 --- !u!1 &8844777551825291243
 GameObject:
