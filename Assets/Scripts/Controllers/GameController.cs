@@ -54,8 +54,7 @@ namespace CliffJump.Controllers
             winView.gameObject.SetActive(false);
             
             gameResult.Clear();
-            // runController.gameObject.SetActive(true);
-            aimController.gameObject.SetActive(true);
+            runController.gameObject.SetActive(true);
         }
 
         private void OnRunComplete(float runSpeed)
