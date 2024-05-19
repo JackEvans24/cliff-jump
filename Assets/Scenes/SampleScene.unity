@@ -3450,6 +3450,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8844777551322740160, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
+      propertyPath: overlayText
+      value: 
+      objectReference: {fileID: 1990829792}
     - target: {fileID: 8844777551322740161, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
       propertyPath: m_RootOrder
       value: 7
