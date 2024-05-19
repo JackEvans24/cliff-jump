@@ -96,7 +96,11 @@ namespace CliffJump.Controllers
             Debug.Log($"AIM COMPLETE, SUCCESS: {!hitObstacle}");
 
             pendingActions.Enqueue(() => aimController.gameObject.SetActive(false));
-            pendingActions.Enqueue(() => diveController.gameObject.SetActive(true));
+
+            if (hitObstacle)
+                pendingActions.Enqueue(() => gameOverView.SetActive(true));
+            else
+                pendingActions.Enqueue(() => diveController.gameObject.SetActive(true));
             
             // TODO: Transition to hit water view on hit
         }
