@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc7b6cc64364a1e8e63d32eef6c5502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.1
-  smoothing: 0.05
+  moveSpeed: 0.05
+  smoothing: 0.01
   movementReference: {fileID: -7305304685752661129, guid: 89b86ee713f346741b6416163b8ccd6c, type: 3}
   min: {x: -1.6, y: -0.9}
   max: {x: 1.6, y: 0.9}
@@ -407,10 +407,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 8844777551322740166}
-  timerBar: {fileID: 8950360165847607302}
+  timer: {fileID: 0}
+  reticule: {fileID: 8844777550796370359}
   overlayText: {fileID: 0}
   feedback: {fileID: 2707924964359962628}
-  reticule: {fileID: 8844777550796370359}
   introDuration: 2
   outroDuration: 0.3
   timerDuration: 1
@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb9d85db24442739111231d29c2a6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstacleType: 0
   contactFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -922,17 +923,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de42962fc6916b44b820cb88b832315, type: 3}
---- !u!114 &8950360165847607302 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6435687234472138731, guid: 1de42962fc6916b44b820cb88b832315, type: 3}
-  m_PrefabInstance: {fileID: 2694901176215633901}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c8f12ff726646088ab2931b1551c3ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8950360165847607303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6435687234472138730, guid: 1de42962fc6916b44b820cb88b832315, type: 3}
