@@ -5,6 +5,7 @@ namespace CliffJump.UI.Views
     public class DiveView : MonoBehaviour
     {
         [Header("References")]
+        [SerializeField] private GameObject indicatorsContainer;
         [SerializeField] private Transform indicator;
         [SerializeField] private Transform maxIndicator;
         [SerializeField] private Transform minIndicator;
@@ -16,6 +17,11 @@ namespace CliffJump.UI.Views
         {
             maxIndicator.rotation = Quaternion.Euler(0f, 0f, failureAngle - boundaryTweak);
             minIndicator.rotation = Quaternion.Euler(0f, 0f, -failureAngle + boundaryTweak);
+        }
+
+        public void SetUIEnabled(bool uiEnabled)
+        {
+            indicatorsContainer.SetActive(uiEnabled);
         }
 
         public void SetUI(float diveAngle)
