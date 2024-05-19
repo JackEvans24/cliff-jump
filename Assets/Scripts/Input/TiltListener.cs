@@ -1,6 +1,7 @@
 ﻿using System;
 using CliffJump.Data;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace CliffJump.Input
 {
@@ -51,7 +52,7 @@ namespace CliffJump.Input
 
             var latentDirection = Math.Sign(CurrentTiltAmount);
             if (latentDirection == 0)
-                latentDirection = 1;
+                latentDirection = Random.Range(0, 2) == 1 ? 1 : -1;
 
             var latentMultiplier = Math.Max(1f, absoluteTip * tiltData.LatentTiltMultiplier);
             var latentTip = tiltData.LatentTilt * latentDirection * latentMultiplier;
