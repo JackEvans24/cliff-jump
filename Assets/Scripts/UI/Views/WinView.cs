@@ -15,7 +15,7 @@ namespace CliffJump.UI.Views
         public void SetResults(GameResult result)
         {
             runLabel.text = result.RunSpeed.ToString("0.00");
-            jumpLabel.text = result.QteTimeRemaining.ToString("0.00");
+            jumpLabel.text = result.JumpScore.ToString("0.00");
             diveLabel.text = result.DiveAngle.ToString("0.00");
 
             finalScoreLabel.text = result.FinalScore.ToString("0.00");
