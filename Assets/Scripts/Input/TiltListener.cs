@@ -8,13 +8,13 @@ namespace CliffJump.Input
     {
         public event Action TiltFailed;
 
+        public bool Enabled { get; private set; }
         public float CurrentTiltAmount { get; private set; }
         
         private TiltData tiltData;
         private InputAction tiltAction;
 
         private float currentInput;
-        private bool enabled;
 
         public void Listen(TiltData data, InputAction action)
         {
@@ -23,18 +23,18 @@ namespace CliffJump.Input
             tiltAction.Enable();
 
             CurrentTiltAmount = 0f;
-            enabled = true;
+            Enabled = true;
         }
 
         public void Unlisten()
         {
-            enabled = false;
+            Enabled = false;
             tiltAction.Disable();
         }
 
         public void Update()
         {
-            if (!enabled)
+            if (!Enabled)
                 return;
 
             currentInput = tiltAction.ReadValue<float>();
@@ -42,7 +42,7 @@ namespace CliffJump.Input
 
         public void FixedUpdate()
         {
-            if (!enabled)
+            if (!Enabled)
                 return;
 
             var absoluteTip = Math.Abs(CurrentTiltAmount);
