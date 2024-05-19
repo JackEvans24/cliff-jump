@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Timers;
 using CliffJump.Input;
 using CliffJump.UI;
 using CliffJump.Utilities;
@@ -13,6 +12,8 @@ namespace CliffJump.Controllers
     {
         public event Action<float> RunComplete;
 
+        [SerializeField] private TimerPlus timer;
+
         [Header("Intro")]
         [SerializeField] private float introDuration = 2;
 
@@ -22,7 +23,6 @@ namespace CliffJump.Controllers
 
         [Header("UI")]
         [SerializeField] private SpeedMeter speedMeter;
-        [SerializeField] private TimerBar timerBar;
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private GameObject mashUI;
 
@@ -38,13 +38,10 @@ namespace CliffJump.Controllers
         [SerializeField] private InputActionReference[] actionReferences;
 
         private readonly ButtonMashListener mashListener = new();
-        private readonly TimerPlus timer = new();
 
         private float currentRunSpeed;
         private float currentDeceleration;
         private float finalRunSpeed;
-
-        private bool triggerOutro;
         
         private static readonly int Outro = Animator.StringToHash("Outro");
 
@@ -61,7 +58,6 @@ namespace CliffJump.Controllers
         {
             mashListener.ButtonMashed += OnMash;
             
-            timer.Interval = timerDuration * 1000;
             timer.Elapsed += OnTimerElapsed;
             
             currentRunSpeed = minRunSpeed;
@@ -81,26 +77,18 @@ namespace CliffJump.Controllers
             mashListener.Listen();
             
             mashUI.SetActive(true);
-            timerBar.Initialise(timerDuration);
 
-            timer.Start();
+            timer.StartTimer(timerDuration);
         }
 
         private void FixedUpdate()
         {
-            if (triggerOutro)
-            {
-                triggerOutro = false;
-                StartCoroutine(DoOutro());
-            }
-
             if (!mashListener.Enabled)
                 return;
 
             currentRunSpeed = Mathf.Max(minRunSpeed, currentRunSpeed - currentDeceleration);
             currentDeceleration += runDeceleration;
             
-            timerBar.UpdateTimer(timer.TimeRemaining);
             speedMeter.SetSpeedValue(currentRunSpeed);
         }
 
@@ -110,20 +98,18 @@ namespace CliffJump.Controllers
             currentDeceleration = runDeceleration;
         }
 
-        private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        private void OnTimerElapsed()
         {
-            timer.Stop();
             finalRunSpeed = currentRunSpeed;
 
             mashListener.Unlisten();
 
-            triggerOutro = true;
+            StartCoroutine(DoOutro());
         }
 
         private IEnumerator DoOutro()
         {
             mashUI.SetActive(false);
-            timerBar.Hide();
             
             characterAnimator.SetTrigger(Outro);
 

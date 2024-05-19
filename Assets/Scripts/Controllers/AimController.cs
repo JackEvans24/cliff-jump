@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Timers;
 using CliffJump.UI;
 using CliffJump.UI.Views;
 using CliffJump.Utilities;
@@ -15,10 +14,12 @@ namespace CliffJump.Controllers
         
         [Header("References")]
         [SerializeField] private AimView view;
-        [SerializeField] private TimerBar timerBar;
+        [SerializeField] private TimerPlus timer;
+
+        [Header("UI")]
+        [SerializeField] private GameObject reticule;
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private FeedbackOverlay feedback;
-        [SerializeField] private GameObject reticule;
 
         [Header("Timings")]
         [SerializeField] private float introDuration = 2f;
@@ -27,13 +28,8 @@ namespace CliffJump.Controllers
         [Header("Timer")]
         [SerializeField] private float timerDuration = 1.5f;
 
-        private readonly TimerPlus timer = new();
-        private readonly Queue<Action> pendingActions = new();
-        private bool listeningForInput;
-
         private void OnEnable()
         {
-            timer.Interval = timerDuration * 1000;
             timer.Elapsed += OnTimerElapsed;
             
             view.SetUpField();
@@ -48,46 +44,27 @@ namespace CliffJump.Controllers
             yield return new WaitForSeconds(introDuration);
 
             reticule.SetActive(true);
-            timerBar.Initialise(timerDuration);
-            timer.Start();
-
-            listeningForInput = true;
-        }
-        
-        private void FixedUpdate()
-        {
-            if (listeningForInput)
-                timerBar.UpdateTimer(timer.TimeRemaining);
-
-            while (pendingActions.Count > 0)
-            {
-                var action = pendingActions.Dequeue();
-                action.Invoke();
-            }
+            timer.StartTimer(timerDuration);
         }
 
-        private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        private void OnTimerElapsed()
         {
-            timer.Stop();
-
-            listeningForInput = false;
-
-            var result = view.ReticuleOverlapsObstacle();
-            Debug.Log($"HIT OBSTACLE: {result}");
-            pendingActions.Enqueue(() => StartCoroutine(DoOutro(result)));
-        }
-
-        private IEnumerator DoOutro(bool hitObstacle)
-        {
-            reticule.SetActive(false);
-            timerBar.Hide();
+            var hitObstacle = view.ReticuleOverlapsObstacle();
             
+            reticule.SetActive(false);
+
             if (hitObstacle)
                 feedback.DoNegativeFeedback();
             else
                 feedback.DoPositiveFeedback();
 
+            StartCoroutine(DoOutro(hitObstacle));
+        }
+
+        private IEnumerator DoOutro(bool hitObstacle)
+        {
             yield return new WaitForSeconds(outroDuration);
+
             AimComplete?.Invoke(hitObstacle);
         }
 

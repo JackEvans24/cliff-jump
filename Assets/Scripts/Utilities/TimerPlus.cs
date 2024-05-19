@@ -1,32 +1,54 @@
 ﻿using System;
-using System.Timers;
+using CliffJump.UI;
+using UnityEngine;
 
 namespace CliffJump.Utilities
 {
-    public class TimerPlus : Timer
+    public class TimerPlus : MonoBehaviour
     {
-        private DateTime m_dueTime;
-
-        public TimerPlus() => Elapsed += ElapsedAction;
-
-        protected new void Dispose()
-        {
-            Elapsed -= ElapsedAction;
-            base.Dispose();
-        }
-
-        public float TimeRemaining => (float)(m_dueTime - DateTime.Now).TotalMilliseconds / 1000f;
+        [SerializeField] private TimerBar timerBar;
         
-        public new void Start()
+        public event Action Elapsed;
+
+        public float TimeRemaining => startTime + interval - Time.time;
+
+        private bool timerActive;
+        private float startTime;
+        private float interval;
+
+        public void StartTimer(float duration)
         {
-            m_dueTime = DateTime.Now.AddMilliseconds(Interval);
-            base.Start();
+            timerActive = true;
+            startTime = Time.time;
+            interval = duration;
+            
+            timerBar.Initialise(duration);
+            timerBar.UpdateTimer(TimeRemaining);
         }
 
-        private void ElapsedAction(object sender, ElapsedEventArgs e)
+        public void Stop()
         {
-            if (AutoReset)
-                m_dueTime = DateTime.Now.AddMilliseconds(Interval);
+            timerActive = false;
+            timerBar.Hide();
+        }
+
+        private void Update()
+        {
+            if (!timerActive)
+                return;
+
+            timerBar.UpdateTimer(TimeRemaining);
+            
+            if (Time.time > startTime + interval)
+                TriggerTimerElapsed();
+        }
+
+        private void TriggerTimerElapsed()
+        {
+            timerActive = false;
+            Elapsed?.Invoke();
+            
+            timerBar.Hide();
         }
     }
 }
