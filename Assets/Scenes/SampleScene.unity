@@ -3425,6 +3425,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3090867475828840350, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
+      propertyPath: overlayText
+      value: 
+      objectReference: {fileID: 1990829792}
     - target: {fileID: 3090867475828840351, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
       propertyPath: m_RootOrder
       value: 8
