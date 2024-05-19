@@ -148,6 +148,7 @@ namespace CliffJump.Controllers
         private void QTEFinished()
         {
             timer.Elapsed -= OnTimerElapsed;
+            timer.Stop();
 
             qteListener.Unlisten();
             

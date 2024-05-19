@@ -110,6 +110,7 @@ namespace CliffJump.Controllers
         private void EndTilt()
         {
             timer.Elapsed -= OnTimerElapsed;
+            timer.Stop();
 
             tiltListener.Unlisten();
             tiltListener.TiltFailed -= OnTiltFailed;

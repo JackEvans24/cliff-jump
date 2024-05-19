@@ -26,6 +26,12 @@ namespace CliffJump.Utilities
             timerBar.UpdateTimer(TimeRemaining);
         }
 
+        public void Stop()
+        {
+            timerActive = false;
+            timerBar.Hide();
+        }
+
         private void Update()
         {
             if (!timerActive)
