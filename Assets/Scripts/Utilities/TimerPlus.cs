@@ -1,10 +1,13 @@
 ﻿using System;
+using CliffJump.UI;
 using UnityEngine;
 
 namespace CliffJump.Utilities
 {
     public class TimerPlus : MonoBehaviour
     {
+        [SerializeField] private TimerBar timerBar;
+        
         public event Action Elapsed;
 
         public float TimeRemaining => startTime + interval - Time.time;
@@ -18,12 +21,17 @@ namespace CliffJump.Utilities
             timerActive = true;
             startTime = Time.time;
             interval = duration;
+            
+            timerBar.Initialise(duration);
+            timerBar.UpdateTimer(TimeRemaining);
         }
 
         private void Update()
         {
             if (!timerActive)
                 return;
+
+            timerBar.UpdateTimer(TimeRemaining);
             
             if (Time.time > startTime + interval)
                 TriggerTimerElapsed();
@@ -33,6 +41,8 @@ namespace CliffJump.Utilities
         {
             timerActive = false;
             Elapsed?.Invoke();
+            
+            timerBar.Hide();
         }
     }
 }

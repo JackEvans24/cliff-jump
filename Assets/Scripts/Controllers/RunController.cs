@@ -23,7 +23,6 @@ namespace CliffJump.Controllers
 
         [Header("UI")]
         [SerializeField] private SpeedMeter speedMeter;
-        [SerializeField] private TimerBar timerBar;
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private GameObject mashUI;
 
@@ -43,8 +42,6 @@ namespace CliffJump.Controllers
         private float currentRunSpeed;
         private float currentDeceleration;
         private float finalRunSpeed;
-
-        private bool triggerOutro;
         
         private static readonly int Outro = Animator.StringToHash("Outro");
 
@@ -80,26 +77,18 @@ namespace CliffJump.Controllers
             mashListener.Listen();
             
             mashUI.SetActive(true);
-            timerBar.Initialise(timerDuration);
 
             timer.StartTimer(timerDuration);
         }
 
         private void FixedUpdate()
         {
-            if (triggerOutro)
-            {
-                triggerOutro = false;
-                StartCoroutine(DoOutro());
-            }
-
             if (!mashListener.Enabled)
                 return;
 
             currentRunSpeed = Mathf.Max(minRunSpeed, currentRunSpeed - currentDeceleration);
             currentDeceleration += runDeceleration;
             
-            timerBar.UpdateTimer(timer.TimeRemaining);
             speedMeter.SetSpeedValue(currentRunSpeed);
         }
 
@@ -115,13 +104,12 @@ namespace CliffJump.Controllers
 
             mashListener.Unlisten();
 
-            triggerOutro = true;
+            StartCoroutine(DoOutro());
         }
 
         private IEnumerator DoOutro()
         {
             mashUI.SetActive(false);
-            timerBar.Hide();
             
             characterAnimator.SetTrigger(Outro);
 

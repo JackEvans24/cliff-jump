@@ -18,7 +18,6 @@ namespace CliffJump.Controllers
 
         [Header("UI")]
         [SerializeField] private GameObject reticule;
-        [SerializeField] private TimerBar timerBar;
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private FeedbackOverlay feedback;
 
@@ -30,7 +29,6 @@ namespace CliffJump.Controllers
         [SerializeField] private float timerDuration = 1.5f;
 
         private readonly Queue<Action> pendingActions = new();
-        private bool listeningForInput;
 
         private void OnEnable()
         {
@@ -48,17 +46,11 @@ namespace CliffJump.Controllers
             yield return new WaitForSeconds(introDuration);
 
             reticule.SetActive(true);
-            timerBar.Initialise(timerDuration);
             timer.StartTimer(timerDuration);
-
-            listeningForInput = true;
         }
         
         private void FixedUpdate()
         {
-            if (listeningForInput)
-                timerBar.UpdateTimer(timer.TimeRemaining);
-
             while (pendingActions.Count > 0)
             {
                 var action = pendingActions.Dequeue();
@@ -68,8 +60,6 @@ namespace CliffJump.Controllers
 
         private void OnTimerElapsed()
         {
-            listeningForInput = false;
-
             var result = view.ReticuleOverlapsObstacle();
             Debug.Log($"HIT OBSTACLE: {result}");
             pendingActions.Enqueue(() => StartCoroutine(DoOutro(result)));
@@ -78,8 +68,7 @@ namespace CliffJump.Controllers
         private IEnumerator DoOutro(bool hitObstacle)
         {
             reticule.SetActive(false);
-            timerBar.Hide();
-            
+
             if (hitObstacle)
                 feedback.DoNegativeFeedback();
             else

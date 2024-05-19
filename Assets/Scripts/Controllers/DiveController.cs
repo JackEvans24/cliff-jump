@@ -21,7 +21,6 @@ namespace CliffJump.Controllers
         [SerializeField] private TimerPlus timer;
         
         [Header("UI")]
-        [SerializeField] private TimerBar timerBar;
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private FeedbackOverlay feedback;
         
@@ -63,7 +62,6 @@ namespace CliffJump.Controllers
             view.SetUI(tiltListener.CurrentTiltAmount);
             view.SetUIEnabled(true);
             
-            timerBar.Initialise(timerDuration);
             timer.StartTimer(timerDuration);
         }
 
@@ -78,7 +76,6 @@ namespace CliffJump.Controllers
                 return;
             
             tiltListener.Update();
-            timerBar.UpdateTimer(timer.TimeRemaining);
 
             while (pendingActions.Count > 0)
             {
@@ -129,7 +126,6 @@ namespace CliffJump.Controllers
             tiltListener.TiltFailed -= OnTiltFailed;
 
             view.SetUIEnabled(false);
-            timerBar.Hide();
         }
     }
 }

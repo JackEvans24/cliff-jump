@@ -33,7 +33,6 @@ namespace CliffJump.Controllers
         private static readonly int FailureTrigger = Animator.StringToHash("Failure");
 
         [Header("UI")]
-        [SerializeField] private TimerBar timerBar;
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private FeedbackOverlay feedback;
 
@@ -83,8 +82,6 @@ namespace CliffJump.Controllers
             var inputActions = GenerateQTEQueue();
             qteListener.Listen(actions, inputActions);
             
-            timerBar.Initialise(timerDuration);
-            
             timer.StartTimer(timerDuration);
         }
 
@@ -105,9 +102,6 @@ namespace CliffJump.Controllers
 
         private void FixedUpdate()
         {
-            if (qteListener.Enabled)
-                timerBar.UpdateTimer(timer.TimeRemaining);
-
             while (pendingActions.Count > 0)
             {
                 var action = pendingActions.Dequeue();
@@ -160,7 +154,6 @@ namespace CliffJump.Controllers
 
             qteListener.Unlisten();
             
-            timerBar.Hide();
             view.ClearView();
         }
 
