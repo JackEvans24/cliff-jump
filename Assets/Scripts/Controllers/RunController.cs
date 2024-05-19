@@ -123,7 +123,7 @@ namespace CliffJump.Controllers
         private IEnumerator DoOutro()
         {
             mashUI.SetActive(false);
-            timerBar.FadeSprites(false);
+            timerBar.Hide();
             
             characterAnimator.SetTrigger(Outro);
 

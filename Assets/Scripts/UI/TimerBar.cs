@@ -54,7 +54,9 @@ namespace CliffJump.UI
             }
         }
 
-        public void FadeSprites(bool enable)
+        public void Hide() => FadeSprites(false);
+
+        private void FadeSprites(bool enable)
         {
             foreach (var spriteRenderer in sprites)
             {
