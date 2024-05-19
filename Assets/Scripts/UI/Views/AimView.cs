@@ -9,16 +9,19 @@ namespace CliffJump.UI.Views
     {
         [Header("References")]
         [SerializeField] private AimReticule reticule;
-
         [SerializeField] private AimObstacle cliff;
         [SerializeField] private AimObstacle[] obstacles;
 
-        [Header("Field")] [SerializeField] private int obstacleCount;
+        [Header("Field")]
+        [SerializeField] private Vector2 reticuleStartPosition;
+        [SerializeField] private int obstacleCount;
 
         private readonly List<AimObstacle> obstaclesToCheck = new();
 
         public void SetUpField()
         {
+            reticule.transform.position = reticuleStartPosition;
+            
             var obstacleIndices = new List<int>(Enumerable.Range(0, obstacles.Length));
             while (obstacleIndices.Count > obstacleCount)
                 obstacleIndices.RemoveAt(Random.Range(0, obstacleIndices.Count));
