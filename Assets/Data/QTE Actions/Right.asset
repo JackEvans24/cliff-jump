@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Right
   m_EditorClassIdentifier: 
   ActionReference: {fileID: -8183580004407764542, guid: 89b86ee713f346741b6416163b8ccd6c, type: 3}
-  Label: Right
+  Direction: 3

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CliffJump.UI;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace CliffJump.Data
@@ -7,6 +8,6 @@ namespace CliffJump.Data
     public class QTEAction : ScriptableObject
     {
         public InputActionReference ActionReference;
-        public string Label;
+        public QTEDirection Direction;
     }
 }
