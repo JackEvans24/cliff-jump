@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
 using CliffJump.Data;
 using CliffJump.Input;
 using CliffJump.UI;
@@ -21,7 +20,8 @@ namespace CliffJump.Controllers
         
         [Header("References")]
         [SerializeField] private JumpView view;
-        
+        [SerializeField] private TimerPlus timer;
+
         [Header("Intro")]
         [SerializeField] private float preIntroDuration = 1;
         [SerializeField] private float introDuration = 2;
@@ -46,14 +46,12 @@ namespace CliffJump.Controllers
 
         private readonly Queue<Action> pendingActions = new();
         private readonly QTEListener qteListener = new();
-        private readonly TimerPlus timer = new();
 
         private void OnEnable()
         {
             characterAnimator.ResetTrigger(SuccessTrigger);
             characterAnimator.ResetTrigger(FailureTrigger);
-
-            timer.Interval = timerDuration * 1000;
+            
             timer.Elapsed += OnTimerElapsed;
 
             qteListener.Progress += OnQteProgress;
@@ -87,7 +85,7 @@ namespace CliffJump.Controllers
             
             timerBar.Initialise(timerDuration);
             
-            timer.Start();
+            timer.StartTimer(timerDuration);
         }
 
         private Queue<InputAction> GenerateQTEQueue()
@@ -136,7 +134,7 @@ namespace CliffJump.Controllers
             pendingActions.Enqueue(() => StartCoroutine(DoOutro(false)));
         }
 
-        private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        private void OnTimerElapsed()
         {
             pendingActions.Enqueue(() => feedback.DoNegativeFeedback());
             pendingActions.Enqueue(() => StartCoroutine(DoOutro(false)));
@@ -158,8 +156,9 @@ namespace CliffJump.Controllers
 
         private void QTEFinished()
         {
+            timer.Elapsed -= OnTimerElapsed;
+
             qteListener.Unlisten();
-            timer.Stop();
             
             timerBar.Hide();
             view.ClearView();

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Timers;
 using CliffJump.Data;
 using CliffJump.Input;
 using CliffJump.UI;
@@ -19,6 +18,9 @@ namespace CliffJump.Controllers
 
         [Header("References")]
         [SerializeField] private DiveView view;
+        [SerializeField] private TimerPlus timer;
+        
+        [Header("UI")]
         [SerializeField] private TimerBar timerBar;
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private FeedbackOverlay feedback;
@@ -38,11 +40,9 @@ namespace CliffJump.Controllers
 
         private readonly Queue<Action> pendingActions = new();
         private readonly TiltListener tiltListener = new();
-        private readonly TimerPlus timer = new();
 
         private void OnEnable()
         {
-            timer.Interval = timerDuration * 1000;
             timer.Elapsed += OnTimerElapsed;
 
             view.SetBoundaryPositions(tiltData.FailureAngle);
@@ -64,7 +64,7 @@ namespace CliffJump.Controllers
             view.SetUIEnabled(true);
             
             timerBar.Initialise(timerDuration);
-            timer.Start();
+            timer.StartTimer(timerDuration);
         }
 
         private void OnDisable()
@@ -98,7 +98,7 @@ namespace CliffJump.Controllers
             pendingActions.Enqueue(() => StartCoroutine(DoEndTilt(false)));
         }
 
-        private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        private void OnTimerElapsed()
         {
             var tiltAmount = Math.Abs(tiltListener.CurrentTiltAmount);
             pendingActions.Enqueue(() => StartCoroutine(DoEndTilt(true, tiltAmount)));
@@ -124,7 +124,6 @@ namespace CliffJump.Controllers
         private void EndTilt()
         {
             timer.Elapsed -= OnTimerElapsed;
-            timer.Stop();
 
             tiltListener.Unlisten();
             tiltListener.TiltFailed -= OnTiltFailed;

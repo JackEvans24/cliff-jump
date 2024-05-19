@@ -1,32 +1,38 @@
 ﻿using System;
-using System.Timers;
+using UnityEngine;
 
 namespace CliffJump.Utilities
 {
-    public class TimerPlus : Timer
+    public class TimerPlus : MonoBehaviour
     {
-        private DateTime m_dueTime;
+        public event Action Elapsed;
 
-        public TimerPlus() => Elapsed += ElapsedAction;
+        public float TimeRemaining => startTime + interval - Time.time;
 
-        protected new void Dispose()
+        private bool timerActive;
+        private float startTime;
+        private float interval;
+
+        public void StartTimer(float duration)
         {
-            Elapsed -= ElapsedAction;
-            base.Dispose();
+            timerActive = true;
+            startTime = Time.time;
+            interval = duration;
         }
 
-        public float TimeRemaining => (float)(m_dueTime - DateTime.Now).TotalMilliseconds / 1000f;
-        
-        public new void Start()
+        private void Update()
         {
-            m_dueTime = DateTime.Now.AddMilliseconds(Interval);
-            base.Start();
+            if (!timerActive)
+                return;
+            
+            if (Time.time > startTime + interval)
+                TriggerTimerElapsed();
         }
 
-        private void ElapsedAction(object sender, ElapsedEventArgs e)
+        private void TriggerTimerElapsed()
         {
-            if (AutoReset)
-                m_dueTime = DateTime.Now.AddMilliseconds(Interval);
+            timerActive = false;
+            Elapsed?.Invoke();
         }
     }
 }
