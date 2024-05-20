@@ -20,6 +20,10 @@ namespace CliffJump.Controllers
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private FeedbackOverlay feedback;
 
+        [Header("Sounds")]
+        [SerializeField] private SoundTrigger positiveSound;
+        [SerializeField] private SoundTrigger negativeSound;
+
         [Header("Timings")]
         [SerializeField] private float introDuration = 2f;
         [SerializeField] private float outroDuration = .5f;
@@ -53,9 +57,15 @@ namespace CliffJump.Controllers
             reticule.SetActive(false);
 
             if (aimResult == ObstacleType.None)
+            {
                 feedback.DoPositiveFeedback();
+                positiveSound.TriggerSound();
+            }
             else
+            {
                 feedback.DoNegativeFeedback();
+                negativeSound.TriggerSound();
+            }
 
             StartCoroutine(DoOutro(aimResult));
         }
