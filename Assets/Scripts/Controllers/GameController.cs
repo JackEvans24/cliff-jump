@@ -9,6 +9,7 @@ namespace CliffJump.Controllers
     {
         [Header("Game components")]
         [SerializeField] private MenuView menuView;
+        [SerializeField] private MusicController music;
         [SerializeField] private RunController runController;
         [SerializeField] private JumpController jumpController;
         [SerializeField] private AimController aimController;
@@ -29,6 +30,8 @@ namespace CliffJump.Controllers
             aimController.AimComplete += OnAimComplete;
             diveController.TiltSucceeded += OnTiltSucceeded;
             diveController.TiltFailed += OnTiltFailed;
+            
+            ReturnToMenu();
         }
 
         private void OnDisable()
@@ -44,7 +47,10 @@ namespace CliffJump.Controllers
         public void ReturnToMenu()
         {
             ResetViews();
+            
             menuView.gameObject.SetActive(true);
+
+            music.PlayMuted();
         }
 
         public void Restart()
@@ -53,6 +59,8 @@ namespace CliffJump.Controllers
             
             gameResult.Clear();
             runController.gameObject.SetActive(true);
+            
+            music.PlayRunLoop();
         }
 
         private void ResetViews()
@@ -74,6 +82,8 @@ namespace CliffJump.Controllers
             
             runController.gameObject.SetActive(false);
             jumpController.gameObject.SetActive(true);
+            
+            music.PlaySlowdown();
         }
 
         private void OnJumpSucceeded(float timeRemaining)
@@ -96,7 +106,10 @@ namespace CliffJump.Controllers
             if (aimResult != ObstacleType.None)
                 TransitionToSplash(aimResult);
             else
+            {
                 diveController.gameObject.SetActive(true);
+                music.PlayArp();
+            }
         }
 
         private void OnTiltSucceeded(float tiltAngle)

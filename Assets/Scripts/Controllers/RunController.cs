@@ -25,6 +25,10 @@ namespace CliffJump.Controllers
         [SerializeField] private SpeedMeter speedMeter;
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private GameObject mashUI;
+        
+        [Header("Sounds")]
+        [SerializeField] private SoundTrigger mashSound;
+        [SerializeField] private SoundTrigger timerElapsedSound;
 
         [Header("Timer")]
         [SerializeField] private float timerDuration = 5;
@@ -96,6 +100,8 @@ namespace CliffJump.Controllers
         {
             currentRunSpeed += runAcceleration / Mathf.Max(currentRunSpeed, 1f);
             currentDeceleration = runDeceleration;
+            
+            mashSound.TriggerSound();
         }
 
         private void OnTimerElapsed()
@@ -103,6 +109,8 @@ namespace CliffJump.Controllers
             finalRunSpeed = currentRunSpeed;
 
             mashListener.Unlisten();
+            
+            timerElapsedSound.TriggerSound();
 
             StartCoroutine(DoOutro());
         }

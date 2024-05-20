@@ -4,6 +4,7 @@ using CliffJump.UI;
 using CliffJump.UI.Views;
 using CliffJump.Utilities;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CliffJump.Controllers
 {
@@ -20,12 +21,18 @@ namespace CliffJump.Controllers
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private FeedbackOverlay feedback;
 
+        [Header("Sounds")]
+        [SerializeField] private SoundTrigger positiveSound;
+        [SerializeField] private SoundTrigger negativeSound;
+
         [Header("Timings")]
         [SerializeField] private float introDuration = 2f;
         [SerializeField] private float outroDuration = .5f;
 
         [Header("Timer")]
         [SerializeField] private float timerDuration = 1.5f;
+        
+        public UnityEvent triggerMusicStop;
 
         private void OnEnable()
         {
@@ -53,9 +60,16 @@ namespace CliffJump.Controllers
             reticule.SetActive(false);
 
             if (aimResult == ObstacleType.None)
+            {
                 feedback.DoPositiveFeedback();
+                positiveSound.TriggerSound();
+            }
             else
+            {
                 feedback.DoNegativeFeedback();
+                negativeSound.TriggerSound();
+                triggerMusicStop?.Invoke();
+            }
 
             StartCoroutine(DoOutro(aimResult));
         }

@@ -8,6 +8,7 @@ using CliffJump.UI;
 using CliffJump.UI.Views;
 using CliffJump.Utilities;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
@@ -36,12 +37,18 @@ namespace CliffJump.Controllers
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private FeedbackOverlay feedback;
 
+        [Header("Sounds")]
+        [SerializeField] private SoundTrigger positiveSound;
+        [SerializeField] private SoundTrigger negativeSound;
+
         [Header("Input")]
         [SerializeField] private int qteLength = 3;
         [SerializeField] private QTEAction[] qteActions;
 
         [Header("Timer")]
         [SerializeField] private float timerDuration = 3;
+        
+        public UnityEvent triggerMusicStop;
 
         private readonly QTEListener qteListener = new();
 
@@ -102,12 +109,14 @@ namespace CliffJump.Controllers
         private void OnQteProgress()
         {
             feedback.DoPositiveFeedback();
+            positiveSound.TriggerSound();
             view.UpdateActiveLabel();
         }
 
         private void OnQteSucceeded()
         {
             feedback.DoPositiveFeedback();
+            positiveSound.TriggerSound();
             QTEFinished();
 
             characterAnimator.SetTrigger(SuccessTrigger);
@@ -118,6 +127,9 @@ namespace CliffJump.Controllers
         private void OnQteFailed()
         {
             feedback.DoNegativeFeedback();
+            negativeSound.TriggerSound();
+            triggerMusicStop?.Invoke();
+
             QTEFinished();
 
             characterAnimator.SetTrigger(FailureTrigger);
@@ -128,6 +140,9 @@ namespace CliffJump.Controllers
         private void OnTimerElapsed()
         {
             feedback.DoNegativeFeedback();
+            negativeSound.TriggerSound();
+            triggerMusicStop?.Invoke();
+
             QTEFinished();
 
             characterAnimator.SetTrigger(FailureTrigger);

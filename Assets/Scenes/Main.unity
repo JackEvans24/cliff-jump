@@ -489,6 +489,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1224709414}
+        m_TargetAssemblyTypeName: CliffJump.Utilities.SoundTrigger, CliffJump
+        m_MethodName: TriggerSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &136190595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,6 +573,7 @@ RectTransform:
   - {fileID: 948542749}
   - {fileID: 709185191}
   - {fileID: 1990829790}
+  - {fileID: 1224709413}
   m_Father: {fileID: 417336650}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -671,6 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuView: {fileID: 768857405}
+  music: {fileID: 992066346}
   runController: {fileID: 1687425316809795994}
   jumpController: {fileID: 1318227980}
   aimController: {fileID: 1687718137}
@@ -692,6 +706,7 @@ Transform:
   m_Children:
   - {fileID: 226846466}
   - {fileID: 607878655}
+  - {fileID: 992066344}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1423,6 +1438,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1224709414}
+        m_TargetAssemblyTypeName: CliffJump.Utilities.SoundTrigger, CliffJump
+        m_MethodName: TriggerSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &689062131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2120,6 +2147,154 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &992066343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 992066344}
+  - component: {fileID: 992066346}
+  - component: {fileID: 992066345}
+  m_Layer: 0
+  m_Name: Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &992066344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992066343}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 417336650}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &992066345
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992066343}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 142cd80c5a616cd4085c7c953d94ec66, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.6
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &992066346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992066343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c4794fc132243d8993caf4eaf70aa5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultLoop: {fileID: 8300000, guid: 142cd80c5a616cd4085c7c953d94ec66, type: 3}
+  filterClip: {fileID: 8300000, guid: e8a6512accb41b640b1a5785a932f8d7, type: 3}
+  mutedLoop: {fileID: 8300000, guid: ed8ffd3cd7907fa49ba6750d5e511d68, type: 3}
+  arpLoop: {fileID: 8300000, guid: 2f122829c61a02048b23cc13a214eef3, type: 3}
+  muteTime: 0.5
+  volumeDownTime: 5
+  volumeDownLevel: 0.3
 --- !u!1 &1010933616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2656,6 +2831,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178456649}
   m_CullTransparentMesh: 1
+--- !u!1001 &1224709412
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 226846466}
+    m_Modifications:
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676753715055678818, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: m_Name
+      value: SoundTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504100303944940291, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 996e71f7022c81b418ead6ca11dc92f6, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+--- !u!4 &1224709413 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3467642043775882397, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+  m_PrefabInstance: {fileID: 1224709412}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1224709414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8504100303944940291, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
+  m_PrefabInstance: {fileID: 1224709412}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa823891cd24c5aa08ee2e262d6e30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1290435233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3888,6 +4140,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1224709414}
+        m_TargetAssemblyTypeName: CliffJump.Utilities.SoundTrigger, CliffJump
+        m_MethodName: TriggerSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2019007870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4013,6 +4277,18 @@ MonoBehaviour:
       - m_Target: {fileID: 417336649}
         m_TargetAssemblyTypeName: CliffJump.Controllers.GameController, CliffJump
         m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1224709414}
+        m_TargetAssemblyTypeName: CliffJump.Utilities.SoundTrigger, CliffJump
+        m_MethodName: TriggerSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4376,10 +4652,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerVolumeFade.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
@@ -4395,6 +4675,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerFeedback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 519420034}
@@ -4403,13 +4687,25 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerVolumeFade.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 417336649}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 992066346}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 417336649}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerVolumeFade.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 992066346}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerFeedback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4423,12 +4719,24 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerVolumeFade.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ShowWinScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: FadeArp
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -4437,6 +4745,10 @@ PrefabInstance:
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerNegativeFeedback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerVolumeFade.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FadeArp
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerNegativeFeedback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4459,8 +4771,16 @@ PrefabInstance:
       value: CliffJump.Controllers.GameController, CliffJump
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: CliffJump.Controllers.MusicController, CliffJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CliffJump.Controllers.GameController, CliffJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerVolumeFade.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CliffJump.Controllers.MusicController, CliffJump
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerNegativeFeedback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -4475,7 +4795,15 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerWinScreen.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
       propertyPath: triggerLoseScreen.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
+      propertyPath: triggerVolumeFade.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1080137951620046846, guid: ea7a8b954b73a394ea8d920103299a9a, type: 3}
@@ -4595,6 +4923,90 @@ PrefabInstance:
       propertyPath: overlayText
       value: 
       objectReference: {fileID: 1990829792}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicResume.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicSlowdown.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicResume.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 992066346}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicResume.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 992066346}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicSlowdown.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicSlowdown.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 992066346}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Stop
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicResume.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicResume.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayArp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicSlowdown.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicSlowdown.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaySlowdown
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CliffJump.Controllers.MusicController, CliffJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicResume.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CliffJump.Controllers.MusicController, CliffJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicSlowdown.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CliffJump.Controllers.MusicController, CliffJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicResume.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103888903788544415, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
+      propertyPath: triggerMusicSlowdown.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1965174142164544460, guid: 708b7ca44b48c7d4f8a7a983aedbd1f4, type: 3}
       propertyPath: triggerFeedback.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -4740,6 +5152,34 @@ PrefabInstance:
       propertyPath: overlayText
       value: 
       objectReference: {fileID: 1990829792}
+    - target: {fileID: 3090867475828840350, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090867475828840350, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090867475828840350, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 992066346}
+    - target: {fileID: 3090867475828840350, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090867475828840350, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Stop
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090867475828840350, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CliffJump.Controllers.MusicController, CliffJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090867475828840350, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3090867475828840351, guid: 72aaff4824bcabc4997799527c35f068, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -4821,6 +5261,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 7385417008822036947, guid: 710d724831a860348ab58d7f774088c1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 710d724831a860348ab58d7f774088c1, type: 3}
 --- !u!1001 &8844777551817599818
@@ -4838,6 +5282,34 @@ PrefabInstance:
       propertyPath: overlayText
       value: 
       objectReference: {fileID: 1990829792}
+    - target: {fileID: 8844777551322740160, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844777551322740160, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844777551322740160, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 992066346}
+    - target: {fileID: 8844777551322740160, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844777551322740160, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Stop
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844777551322740160, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CliffJump.Controllers.MusicController, CliffJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844777551322740160, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
+      propertyPath: triggerMusicStop.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8844777551322740161, guid: 3d057092dfdbb7c40b643ad0ec2dc73d, type: 3}
       propertyPath: m_RootOrder
       value: 8
