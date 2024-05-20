@@ -16,11 +16,17 @@ namespace CliffJump.Utilities
         private float startTime;
         private float interval;
 
-        public void StartTimer(float duration)
+        public void StartTimer(float duration, bool showTimerBar = true)
         {
             timerActive = true;
             startTime = Time.time;
             interval = duration;
+
+            if (!showTimerBar)
+            {
+                timerBar.Hide();
+                return;
+            }
             
             timerBar.Initialise(duration);
             timerBar.UpdateTimer(TimeRemaining);
