@@ -496,7 +496,7 @@ MonoBehaviour:
   mashUI: {fileID: 7698708089601694484}
   mashSound: {fileID: 3252652940286428329}
   timerElapsedSound: {fileID: 513498554559982386}
-  timerDuration: 5
+  timerDuration: 6
   runAcceleration: 8
   runDeceleration: 0.01
   minRunSpeed: 5
