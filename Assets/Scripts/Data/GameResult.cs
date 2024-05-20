@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UnityEngine;
 
 namespace CliffJump.Data
 {
@@ -8,9 +8,11 @@ namespace CliffJump.Data
         public float QteTimeRemaining;
         public float DiveAngle;
 
-        public float JumpScore => QteTimeRemaining * 5f;
+        public float JumpScore => QteTimeRemaining * 10f;
 
-        public float FinalScore => RunSpeed * JumpScore / (float)Math.Sqrt(Math.Max(0.001f, DiveAngle));
+        private float DiveMultiplier => Mathf.Pow(DiveAngle + 0.25f, 0.5f) - 0.2f;
+
+        public float FinalScore => RunSpeed * JumpScore / DiveMultiplier;
 
         public void Clear()
         {
