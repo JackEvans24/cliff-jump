@@ -8,6 +8,7 @@ using CliffJump.UI;
 using CliffJump.UI.Views;
 using CliffJump.Utilities;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
@@ -46,6 +47,8 @@ namespace CliffJump.Controllers
 
         [Header("Timer")]
         [SerializeField] private float timerDuration = 3;
+        
+        public UnityEvent triggerMusicStop;
 
         private readonly QTEListener qteListener = new();
 
@@ -125,6 +128,8 @@ namespace CliffJump.Controllers
         {
             feedback.DoNegativeFeedback();
             negativeSound.TriggerSound();
+            triggerMusicStop?.Invoke();
+
             QTEFinished();
 
             characterAnimator.SetTrigger(FailureTrigger);
@@ -135,6 +140,9 @@ namespace CliffJump.Controllers
         private void OnTimerElapsed()
         {
             feedback.DoNegativeFeedback();
+            negativeSound.TriggerSound();
+            triggerMusicStop?.Invoke();
+
             QTEFinished();
 
             characterAnimator.SetTrigger(FailureTrigger);
