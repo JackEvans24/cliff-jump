@@ -554,7 +554,7 @@ MonoBehaviour:
   positiveSound: {fileID: 1366530286656209143}
   negativeSound: {fileID: 664271107134902284}
   introDuration: 2
-  outroDuration: 0.3
+  outroDuration: 0.5
   timerDuration: 1
 --- !u!114 &8844777551322740166
 MonoBehaviour:

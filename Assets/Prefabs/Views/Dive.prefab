@@ -262,7 +262,7 @@ MonoBehaviour:
   negativeSound: {fileID: 2584632928737572041}
   tilt: {fileID: 459287251745344284, guid: 89b86ee713f346741b6416163b8ccd6c, type: 3}
   introDuration: 2
-  outroDuration: 0.3
+  outroDuration: 0.5
   timerDuration: 5
   tiltData:
     InputTilt: 0.5
