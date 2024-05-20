@@ -36,6 +36,10 @@ namespace CliffJump.Controllers
         [SerializeField] private OverlayText overlayText;
         [SerializeField] private FeedbackOverlay feedback;
 
+        [Header("Sounds")]
+        [SerializeField] private SoundTrigger positiveSound;
+        [SerializeField] private SoundTrigger negativeSound;
+
         [Header("Input")]
         [SerializeField] private int qteLength = 3;
         [SerializeField] private QTEAction[] qteActions;
@@ -102,12 +106,14 @@ namespace CliffJump.Controllers
         private void OnQteProgress()
         {
             feedback.DoPositiveFeedback();
+            positiveSound.TriggerSound();
             view.UpdateActiveLabel();
         }
 
         private void OnQteSucceeded()
         {
             feedback.DoPositiveFeedback();
+            positiveSound.TriggerSound();
             QTEFinished();
 
             characterAnimator.SetTrigger(SuccessTrigger);
@@ -118,6 +124,7 @@ namespace CliffJump.Controllers
         private void OnQteFailed()
         {
             feedback.DoNegativeFeedback();
+            negativeSound.TriggerSound();
             QTEFinished();
 
             characterAnimator.SetTrigger(FailureTrigger);
