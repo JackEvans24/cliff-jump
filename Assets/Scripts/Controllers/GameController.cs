@@ -29,6 +29,8 @@ namespace CliffJump.Controllers
             aimController.AimComplete += OnAimComplete;
             diveController.TiltSucceeded += OnTiltSucceeded;
             diveController.TiltFailed += OnTiltFailed;
+            
+            ReturnToMenu();
         }
 
         private void OnDisable()
