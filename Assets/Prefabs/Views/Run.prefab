@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fa823891cd24c5aa08ee2e262d6e30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 4df44405818338e4e8cd01a18181def4, type: 3}
+  clip: {fileID: 8300000, guid: 996e71f7022c81b418ead6ca11dc92f6, type: 3}
 --- !u!1 &8855861401318697150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,7 +1372,7 @@ PrefabInstance:
     - target: {fileID: 8504100303944940291, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
       propertyPath: clip
       value: 
-      objectReference: {fileID: 8300000, guid: 996e71f7022c81b418ead6ca11dc92f6, type: 3}
+      objectReference: {fileID: 8300000, guid: 70b07ecccd896e54b91bf4ea78ad7acb, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 558a45a7a8a3d9d41b55ad6b0f304b72, type: 3}
 --- !u!114 &513498554559982386 stripped
