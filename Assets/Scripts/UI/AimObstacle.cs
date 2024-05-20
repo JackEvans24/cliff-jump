@@ -7,7 +7,9 @@ namespace CliffJump.UI
     public class AimObstacle : MonoBehaviour
     {
         public bool ReticuleWithinBounds { get; private set; }
-        
+        public ObstacleType ObstacleType => obstacleType;
+
+        [SerializeField] private ObstacleType obstacleType;
         [SerializeField] private ContactFilter2D contactFilter;
 
         private Collider2D coll;
@@ -35,5 +37,14 @@ namespace CliffJump.UI
             var overlapCount = coll.OverlapCollider(contactFilter, overlaps);
             ReticuleWithinBounds = overlapCount > 0 && overlaps.Contains(reticule.Collider);
         }
+    }
+
+    public enum ObstacleType
+    {
+        None,
+        Rock,
+        Cliff,
+        Boat,
+        Tilt
     }
 }

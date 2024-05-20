@@ -22,11 +22,14 @@ namespace CliffJump.UI.Views
         {
             reticule.transform.position = reticuleStartPosition;
             
+            obstaclesToCheck.Clear();
+            
+            cliff.SetReticule(reticule);
+            obstaclesToCheck.Add(cliff);
+
             var obstacleIndices = new List<int>(Enumerable.Range(0, obstacles.Length));
             while (obstacleIndices.Count > obstacleCount)
                 obstacleIndices.RemoveAt(Random.Range(0, obstacleIndices.Count));
-
-            obstaclesToCheck.Clear();
 
             for (var i = 0; i < obstacles.Length; i++)
             {
@@ -36,14 +39,20 @@ namespace CliffJump.UI.Views
 
                 obstaclesToCheck.Add(obstacle);
             }
-            
-            cliff.SetReticule(reticule);
-            obstaclesToCheck.Add(cliff);
         }
 
-        public bool ReticuleOverlapsObstacle()
+        public ObstacleType ReticuleOverlapsObstacle()
         {
-            return obstaclesToCheck.Any(ob => ob.ReticuleWithinBounds);
+            var result = ObstacleType.None;
+            foreach (var obstacle in obstaclesToCheck)
+            {
+                if (!obstacle.ReticuleWithinBounds)
+                    continue;
+                result = obstacle.ObstacleType;
+                break;
+            }
+
+            return result;
         }
     }
 }

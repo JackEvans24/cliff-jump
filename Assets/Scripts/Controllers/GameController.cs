@@ -1,4 +1,5 @@
 ﻿using CliffJump.Data;
+using CliffJump.UI;
 using CliffJump.UI.Views;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ namespace CliffJump.Controllers
         [SerializeField] private JumpController jumpController;
         [SerializeField] private AimController aimController;
         [SerializeField] private DiveController diveController;
-
+        [SerializeField] private SplashController splashController;
+        
         [Header("End Game views")]
         [SerializeField] private WinView winView;
         [SerializeField] private GameObject gameOverView;
@@ -46,6 +48,7 @@ namespace CliffJump.Controllers
             jumpController.gameObject.SetActive(false);
             aimController.gameObject.SetActive(false);
             diveController.gameObject.SetActive(false);
+            splashController.gameObject.SetActive(false);
             
             gameOverView.SetActive(false);
             winView.gameObject.SetActive(false);
@@ -56,7 +59,6 @@ namespace CliffJump.Controllers
 
         private void OnRunComplete(float runSpeed)
         {
-            Debug.Log($"RUN COMPLETE: {runSpeed:0.00}");
             gameResult.RunSpeed = runSpeed;
             
             runController.gameObject.SetActive(false);
@@ -65,7 +67,6 @@ namespace CliffJump.Controllers
 
         private void OnJumpSucceeded(float timeRemaining)
         {
-            Debug.Log($"JUMP COMPLETE: {timeRemaining:0.00}");
             gameResult.QteTimeRemaining = timeRemaining;
 
             jumpController.gameObject.SetActive(false);
@@ -74,44 +75,42 @@ namespace CliffJump.Controllers
 
         private void OnJumpFailed()
         {
-            Debug.Log($"JUMP FAILED");
             gameOverView.SetActive(true);
         }
 
-        private void OnAimComplete(bool hitObstacle)
+        private void OnAimComplete(ObstacleType aimResult)
         {
-            Debug.Log($"AIM COMPLETE, SUCCESS: {!hitObstacle}");
+            aimController.gameObject.SetActive(false);
             
-            if (hitObstacle)
-                gameOverView.SetActive(true);
+            if (aimResult != ObstacleType.None)
+                TransitionToSplash(aimResult);
             else
-            {
-                aimController.gameObject.SetActive(false);
                 diveController.gameObject.SetActive(true);
-            }
-            
-            // TODO: Transition to hit water view on hit
         }
 
         private void OnTiltSucceeded(float tiltAngle)
         {
-            Debug.Log($"TILT SUCCEEDED: {tiltAngle:0.00}");
             gameResult.DiveAngle = tiltAngle;
+            winView.SetResults(gameResult);
             
             diveController.gameObject.SetActive(false);
-            winView.SetResults(gameResult);
-            winView.gameObject.SetActive(true);
-            
-            // TODO: Transition to clean dive view
+            TransitionToSplash(ObstacleType.None);
         }
 
         private void OnTiltFailed()
         {
-            Debug.Log("TILT FAILED");
-            
-            gameOverView.SetActive(true);
-            
-            // TODO: Transition to hit water view
+            diveController.gameObject.SetActive(false);
+            TransitionToSplash(ObstacleType.Tilt);
         }
+
+        private void TransitionToSplash(ObstacleType obstacleType)
+        {
+            splashController.SetAnimationObjects(obstacleType);
+            splashController.gameObject.SetActive(true);
+        }
+
+        public void ShowWinScreen() => winView.gameObject.SetActive(true);
+
+        public void ShowLoseScreen() => gameOverView.SetActive(true);
     }
 }
