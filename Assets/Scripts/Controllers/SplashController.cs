@@ -15,6 +15,8 @@ namespace CliffJump.Controllers
 
         public UnityEvent triggerWinScreen;
         public UnityEvent triggerLoseScreen;
+
+        public UnityEvent triggerFeedback;
         
         public void SetAnimationObjects(ObstacleType obstacleType)
         {
@@ -28,5 +30,7 @@ namespace CliffJump.Controllers
         public void TriggerWin() => triggerWinScreen?.Invoke();
 
         public void TriggerLose() => triggerLoseScreen?.Invoke();
+
+        public void TriggerFeedback() => triggerFeedback?.Invoke();
     }
 }
