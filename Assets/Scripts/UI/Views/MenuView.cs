@@ -21,8 +21,9 @@ namespace CliffJump.UI.Views
         public UnityEvent onStartGameRequested;
 
         private int triggerIndex;
-        private static readonly int Kick = Animator.StringToHash("Kick");
         private static readonly int Stretch = Animator.StringToHash("Stretch");
+        private static readonly int Kick = Animator.StringToHash("Kick");
+        private static readonly int Kneel = Animator.StringToHash("Kneel");
 
         private void OnEnable()
         {
@@ -37,7 +38,7 @@ namespace CliffJump.UI.Views
 
         private void OnElapsed()
         {
-            character.SetTrigger(triggerIndex == 0 ? Kick : Stretch);
+            character.SetTrigger(triggerIndex == 0 ? Stretch : Kick);
 
             triggerIndex++;
             triggerIndex %= 2;
@@ -54,16 +55,18 @@ namespace CliffJump.UI.Views
         public void StartGame()
         {
             timer.Stop();
+            timer.Elapsed -= OnElapsed;
+
             canvas.interactable = false;
 
-            StartCoroutine(DoStartGame());
+            character.SetTrigger(Kneel);
+
+            canvas.DOFade(0f, uiFadeTime);
         }
 
-        private IEnumerator DoStartGame()
+        public void StartGameFromAnimation()
         {
-            yield return canvas
-                .DOFade(0f, uiFadeTime)
-                .WaitForCompletion();
+            character.ResetTrigger(Kneel);
             
             onStartGameRequested?.Invoke();
         }
