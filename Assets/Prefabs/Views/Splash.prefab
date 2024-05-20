@@ -55,6 +55,7 @@ MonoBehaviour:
   rockObj: {fileID: 1080137953406731092}
   boatObj: {fileID: 1080137952222251704}
   tiltObj: {fileID: 8434502875980550869}
+  cliffObj: {fileID: 5275237728310735273}
   triggerWinScreen:
     m_PersistentCalls:
       m_Calls: []
@@ -1384,7 +1385,7 @@ GameObject:
   - component: {fileID: 1080137953446011694}
   - component: {fileID: 1080137953446011689}
   m_Layer: 0
-  m_Name: Cliff
+  m_Name: CliffBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1642,7 +1643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &402987027675751654
 Transform:
   m_ObjectHideFlags: 0
