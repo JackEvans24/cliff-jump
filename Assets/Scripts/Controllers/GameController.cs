@@ -41,7 +41,21 @@ namespace CliffJump.Controllers
             diveController.TiltFailed -= OnTiltFailed;
         }
 
+        public void ReturnToMenu()
+        {
+            ResetViews();
+            menuView.gameObject.SetActive(true);
+        }
+
         public void Restart()
+        {
+            ResetViews();
+            
+            gameResult.Clear();
+            runController.gameObject.SetActive(true);
+        }
+
+        private void ResetViews()
         {
             menuView.gameObject.SetActive(false);
             runController.gameObject.SetActive(false);
@@ -52,9 +66,6 @@ namespace CliffJump.Controllers
             
             gameOverView.SetActive(false);
             winView.gameObject.SetActive(false);
-            
-            gameResult.Clear();
-            runController.gameObject.SetActive(true);
         }
 
         private void OnRunComplete(float runSpeed)
