@@ -1,4 +1,3 @@
-using System.Collections;
 using CliffJump.Utilities;
 using DG.Tweening;
 using UnityEngine;
@@ -9,7 +8,8 @@ namespace CliffJump.UI.Views
     public class MenuView : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private CanvasGroup canvas;
+        [SerializeField] private CanvasGroup ui;
+        [SerializeField] private CanvasGroup credits;
         [SerializeField] private Animator character;
         [SerializeField] private TimerPlus timer;
 
@@ -27,11 +27,16 @@ namespace CliffJump.UI.Views
 
         private void OnEnable()
         {
-            canvas.DOKill();
-            
-            canvas.alpha = 1f;
-            canvas.interactable = true;
-            
+            ui.DOKill();
+
+            credits.alpha = 0f;
+            credits.interactable = false;
+            credits.blocksRaycasts = false;
+
+            ui.alpha = 1f;
+            ui.interactable = true;
+            ui.blocksRaycasts = true;
+
             timer.Elapsed += OnElapsed;
             SetNewTriggerTimer();
         }
@@ -57,11 +62,11 @@ namespace CliffJump.UI.Views
             timer.Stop();
             timer.Elapsed -= OnElapsed;
 
-            canvas.interactable = false;
+            ui.interactable = false;
 
             character.SetTrigger(Kneel);
 
-            canvas.DOFade(0f, uiFadeTime);
+            ui.DOFade(0f, uiFadeTime);
         }
 
         public void StartGameFromAnimation()
@@ -69,6 +74,32 @@ namespace CliffJump.UI.Views
             character.ResetTrigger(Kneel);
             
             onStartGameRequested?.Invoke();
+        }
+
+        public void ShowCredits()
+        {
+            ui.interactable = false;
+            ui.blocksRaycasts = false;
+
+            ui.DOFade(0f, uiFadeTime);
+            credits.DOFade(1f, uiFadeTime).OnComplete(() =>
+            {
+                credits.interactable = true;
+                credits.blocksRaycasts = true;
+            });
+        }
+
+        public void ShowMenu()
+        {
+            credits.interactable = false;
+            credits.blocksRaycasts = false;
+
+            credits.DOFade(0f, uiFadeTime);
+            ui.DOFade(1f, uiFadeTime).OnComplete(() =>
+            {
+                ui.interactable = true;
+                ui.blocksRaycasts = true;
+            });
         }
     }
 }
