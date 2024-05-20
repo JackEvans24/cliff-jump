@@ -60,6 +60,7 @@ MonoBehaviour:
   audioSource: {fileID: 9173314060283213002}
   bonk: {fileID: 8300000, guid: f993727791fd9a148bacad7e4ec760de, type: 3}
   splash: {fileID: 8300000, guid: bf746d128ab81a64faa9864d4a79d5fb, type: 3}
+  successSplash: {fileID: 8300000, guid: d000579566c9a804690d8259e980322d, type: 3}
   triggerWinScreen:
     m_PersistentCalls:
       m_Calls: []
@@ -365,7 +366,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1080137951620046846}
         m_TargetAssemblyTypeName: CliffJump.Controllers.SplashController, CliffJump
-        m_MethodName: PlaySplash
+        m_MethodName: PlaySuccessSplash
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -17,6 +17,7 @@ namespace CliffJump.Controllers
         [Header("Sounds")]
         [SerializeField] private AudioClip bonk;
         [SerializeField] private AudioClip splash;
+        [SerializeField] private AudioClip successSplash;
 
         public UnityEvent triggerWinScreen;
         public UnityEvent triggerLoseScreen;
@@ -41,5 +42,7 @@ namespace CliffJump.Controllers
         public void PlayBonk() => audioSource.PlayOneShot(bonk);
 
         public void PlaySplash() => audioSource.PlayOneShot(splash);
+
+        public void PlaySuccessSplash() => audioSource.PlayOneShot(successSplash);
     }
 }
