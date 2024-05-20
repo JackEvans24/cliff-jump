@@ -716,7 +716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 0.2
-  strength: 0.03
+  strength: 0.08
   tremolo: 50
 --- !u!1 &592933820
 GameObject:
