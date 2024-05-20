@@ -18,9 +18,9 @@ namespace CliffJump.Utilities
 
         public void StartTimer(float duration, bool showTimerBar = true)
         {
-            timerActive = true;
             startTime = Time.time;
             interval = duration;
+            timerActive = true;
 
             if (!showTimerBar)
             {
