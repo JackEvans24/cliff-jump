@@ -8,6 +8,7 @@ namespace CliffJump.Controllers
     public class GameController : MonoBehaviour
     {
         [Header("Game components")]
+        [SerializeField] private MenuView menuView;
         [SerializeField] private RunController runController;
         [SerializeField] private JumpController jumpController;
         [SerializeField] private AimController aimController;
@@ -28,8 +29,6 @@ namespace CliffJump.Controllers
             aimController.AimComplete += OnAimComplete;
             diveController.TiltSucceeded += OnTiltSucceeded;
             diveController.TiltFailed += OnTiltFailed;
-        
-            Restart();
         }
 
         private void OnDisable()
@@ -44,6 +43,7 @@ namespace CliffJump.Controllers
 
         public void Restart()
         {
+            menuView.gameObject.SetActive(false);
             runController.gameObject.SetActive(false);
             jumpController.gameObject.SetActive(false);
             aimController.gameObject.SetActive(false);
