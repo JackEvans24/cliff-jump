@@ -243,7 +243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8844777550796370356
 Transform:
   m_ObjectHideFlags: 0
@@ -352,7 +352,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1}
+  m_Size: {x: 0.02, y: 0.02}
   m_EdgeRadius: 0
 --- !u!1 &8844777551322740163
 GameObject:
@@ -544,11 +544,11 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -2, y: 1}
       - {x: -2, y: -1}
-      - {x: -1, y: -1}
-      - {x: -0.6, y: -0.5}
-      - {x: -0.45, y: 0}
-      - {x: -0.6, y: 0.5}
-      - {x: -1, y: 1}
+      - {x: -1.1, y: -1}
+      - {x: -0.75, y: -0.5}
+      - {x: -0.65, y: 0}
+      - {x: -0.75, y: 0.5}
+      - {x: -1.15, y: 1}
 --- !u!212 &2594611972449214639
 SpriteRenderer:
   m_ObjectHideFlags: 0
