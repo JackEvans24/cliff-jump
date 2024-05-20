@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using CliffJump.Data;
 using CliffJump.Input;
 using CliffJump.UI;
 using CliffJump.UI.Views;
 using CliffJump.Utilities;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace CliffJump.Controllers
@@ -40,6 +40,8 @@ namespace CliffJump.Controllers
 
         [Header("Tilt values")]
         [SerializeField] private TiltData tiltData;
+        
+        public UnityEvent triggerMusicStop;
 
         private readonly TiltListener tiltListener = new();
 
@@ -88,6 +90,8 @@ namespace CliffJump.Controllers
         {
             feedback.DoNegativeFeedback();
             negativeSound.TriggerSound();
+            triggerMusicStop?.Invoke();
+
             EndTilt();
             
             StartCoroutine(DoOutro(false));
