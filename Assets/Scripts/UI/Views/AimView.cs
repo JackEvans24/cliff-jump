@@ -10,6 +10,7 @@ namespace CliffJump.UI.Views
         [Header("References")]
         [SerializeField] private AimReticule reticule;
         [SerializeField] private AimObstacle cliff;
+        [SerializeField] private AimObstacle boundary;
         [SerializeField] private AimObstacle[] obstacles;
 
         [Header("Field")]
@@ -26,6 +27,8 @@ namespace CliffJump.UI.Views
             
             cliff.SetReticule(reticule);
             obstaclesToCheck.Add(cliff);
+            boundary.SetReticule(reticule);
+            obstaclesToCheck.Add(boundary);
 
             var obstacleIndices = new List<int>(Enumerable.Range(0, obstacles.Length));
             while (obstacleIndices.Count > obstacleCount)
