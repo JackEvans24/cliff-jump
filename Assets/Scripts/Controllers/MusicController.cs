@@ -62,6 +62,9 @@ namespace CliffJump.Controllers
         {
             StopAllCoroutines();
 
+            if (audioSource == null)
+                audioSource = GetComponent<AudioSource>();
+
             audioSource.loop = true;
             audioSource.clip = clip;
             audioSource.volume = 1f;
